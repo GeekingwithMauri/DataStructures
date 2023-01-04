@@ -5,6 +5,7 @@ public final class Queue<T> {
     var rear: Node<T>?
 
     public var count: Int
+    public typealias Element = T
 
     public var isEmpty: Bool {
         return front == nil
@@ -37,5 +38,11 @@ public final class Queue<T> {
         count -= 1
 
         return currentNode?.value
+    }
+}
+
+extension Queue: DataStructurable {
+    public func peek() -> T? {
+        return front?.value
     }
 }

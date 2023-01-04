@@ -1,10 +1,10 @@
 import Foundation
 
-public final class Node<T> {
-    public let value: T
-    public var next: Node?
+final class Node<T> {
+    let value: T
+    var next: Node?
 
-    public init(value: T, next: Node? = nil) {
+    init(value: T, next: Node? = nil) {
         self.value = value
         self.next = next
     }
