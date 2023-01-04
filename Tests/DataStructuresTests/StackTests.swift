@@ -68,13 +68,13 @@ final class StackTests: XCTestCase {
     func test_peekMethodReturnsTheRightValue() throws {
         // Given
         sut.push(1)
-        sut.push(2)
+        sut.push(5)
 
         // When
-        let frontValue = try XCTUnwrap(sut.peek(), "No value peeked within the stack")
+        let topValue = try XCTUnwrap(sut.peek(), "No value peeked within the stack")
 
         // Verify
-        XCTAssertEqual(frontValue, 1, "Peeking method isn't working on stack")
+        XCTAssertEqual(topValue, 5, "Peeking method isn't working on stack")
         XCTAssertEqual(sut.count, 2, "Peeking method is altering stack elements count")
     }
 }

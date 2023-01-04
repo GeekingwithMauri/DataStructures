@@ -4,6 +4,7 @@ public final class Stack<T> {
     var top: Node<T>?
 
     public var count: Int
+    public typealias Element = T
 
     public var isEmpty: Bool {
         return top == nil
@@ -27,5 +28,11 @@ public final class Stack<T> {
         count -= 1
 
         return currentTop?.value
+    }
+}
+
+extension Stack: DataStructurable {
+    public func peek() -> T? {
+        return top?.value
     }
 }
