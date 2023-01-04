@@ -28,13 +28,14 @@ public final class Queue<T> {
 
     @discardableResult
     public func dequeue() -> T? {
-        defer {
-            front = front?.next
-            if isEmpty {
-                rear = nil
-            }
+        let currentNode = front
+        front = front?.next
+
+        if isEmpty {
+            rear = nil
         }
         count -= 1
-        return front?.value
+
+        return currentNode?.value
     }
 }

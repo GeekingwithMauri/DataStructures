@@ -22,10 +22,10 @@ public final class Stack<T> {
 
     @discardableResult
     public func pop() -> T? {
-        defer {
-            top = top?.next
-        }
+        let currentTop = top
+        top = top?.next
         count -= 1
-        return top?.value
+
+        return currentTop?.value
     }
 }

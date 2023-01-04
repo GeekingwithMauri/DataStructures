@@ -20,7 +20,7 @@ final class DataStructuresTests: XCTestCase {
         XCTAssert(sut.isEmpty, "Empty flag is throwing a false positive after interactions")
     }
 
-    func test_elementsAreBeingProperlyEnqueued() throws {
+    func test_elementsAreBeingProperlyEnqueued() {
         // Given
         let stubbedElements: [Int] = Array(1...stubbedNumberOfElements)
 
@@ -32,7 +32,7 @@ final class DataStructuresTests: XCTestCase {
         // Verify
         stubbedElements.forEach { i in
             let dequeuedElement = sut.dequeue() ?? -1
-            XCTAssertEqual(i, dequeuedElement, "Added on stack in the wrong order")
+            XCTAssertEqual(i, dequeuedElement, "Added on queue in the wrong order")
         }
     }
 
