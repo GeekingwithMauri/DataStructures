@@ -48,14 +48,12 @@ final class LinkedListTests: XCTestCase {
         XCTAssertEqual(specificElement, 2, "Fetched element isn't the right one")
     }
 
-    func test_removedElementUpdateProperly_theList() throws {
+    func test_removeMiddleElementUpdateProperly_theList() throws {
         // Given
         let sut = LinkedList<Int>(initialElements: [1, 2, 3])
 
         // When
-        sut.print()
         sut.remove(at: 1)
-        sut.print()
 
         // Verify
         let specificElement = try XCTUnwrap(sut.element(at: 1),
@@ -64,16 +62,32 @@ final class LinkedListTests: XCTestCase {
         XCTAssertEqual(sut.count, 2, "Element's count is out of sync")
     }
 
-    func test_listLinkage() {
+    func test_removeHeadElementUpdateProperly_theList() throws {
         // Given
-        print()
-        print()
-        let sut = LinkedList<Int>(initialElements: [1, 2, 3])
+        let sut = LinkedList<Int>(initialElements: [1, 5, 3])
+
+        // When
+        sut.remove(at: 0)
 
         // Verify
-        sut.print()
-        print()
-        print()
+        let specificElement = try XCTUnwrap(sut.element(at: 0),
+                                            "Impossible to retrieve element at given index")
+        XCTAssertEqual(specificElement, 5, "Elements aren't properly organized after removal")
+        XCTAssertEqual(sut.count, 2, "Element's count is out of sync")
+    }
+
+    func test_removeTailElementUpdateProperly_theList() throws {
+        // Given
+        let sut = LinkedList<Int>(initialElements: [1, 5, 3])
+
+        // When
+        sut.remove(at: sut.count - 1)
+
+        // Verify
+        let specificElement = try XCTUnwrap(sut.element(at: sut.count - 1),
+                                            "Impossible to retrieve element at given index")
+        XCTAssertEqual(specificElement, 5, "Elements aren't properly organized after removal")
+        XCTAssertEqual(sut.count, 2, "Element's count is out of sync")
     }
 
     func test_peekMethodReturnsTheRightValue() throws {

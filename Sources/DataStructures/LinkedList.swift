@@ -1,7 +1,7 @@
 import Foundation
 
 public final class LinkedList<T> {
-    var front: Node<T>?
+    var head: Node<T>?
     var tail: Node<T>?
 
     public var count: Int
@@ -21,8 +21,8 @@ public final class LinkedList<T> {
 
     public func append(_ value: T) {
         if isEmpty {
-            front = Node(value: value)
-            tail = front
+            head = Node(value: value)
+            tail = head
         } else {
             let previousNode = tail
             tail?.next = Node(value: value)
@@ -35,7 +35,7 @@ public final class LinkedList<T> {
 
     private func pointer(at index: Int) -> Node<T>? {
         var i = 0
-        var pointer = front
+        var pointer = head
 
         while pointer != nil && i != index {
             pointer = pointer?.next
@@ -50,21 +50,22 @@ public final class LinkedList<T> {
             return
         }
 
-        var pointer = pointer(at: index)
-
-        let previous = memoryAddress(for: pointer?.previous)
-        let next = memoryAddress(for: pointer?.next)
-        let current = memoryAddress(for: pointer)
-
-//        Swift.print("Before deleting")
-//        Swift.print("P: \(previous) \t C: \(current) \t N: \(next))")
-
+        let pointer = pointer(at: index)
         let previousPointer = pointer?.previous
-        pointer = pointer?.next
-        pointer?.previous = previousPointer
+        let nextPointer = pointer?.next
 
-//        Swift.print("After deleting")
-//        Swift.print("P: \(previous) \t C: \(current) \t N: \(next))")
+        if let previous = previousPointer {
+            previous.next = nextPointer
+        } else {
+            head = nextPointer
+        }
+
+//        if let next = nextPointer {
+//            next.next
+//        }
+
+        pointer?.next = nil
+        pointer?.previous = nil
 
         count -= 1
     }
@@ -78,19 +79,19 @@ public final class LinkedList<T> {
     }
 
     public func print() {
-        var pointer = front
-        Swift.print()
+        var pointer = head
 
         while pointer != nil {
-            let previous = memoryAddress(for: pointer?.previous)
-            let next = memoryAddress(for: pointer?.next)
-            let current = memoryAddress(for: pointer)
-
-            Swift.print("P: \(previous) \t C: \(current) \t N: \(next))")
+//            let previous = memoryAddress(for: pointer?.previous)
+//            let next = memoryAddress(for: pointer?.next)
+//            let current = memoryAddress(for: pointer)
+//            Swift.print("P: \(previous) \t C: \(current) \t N: \(next))")
+            if let value = pointer?.value {
+                Swift.print("\(value)")
+            }
 
             pointer = pointer?.next
         }
-        Swift.print()
     }
 
     private func memoryAddress(for node: Node<T>?) -> String {
@@ -104,10 +105,10 @@ public final class LinkedList<T> {
 
 extension LinkedList: DataStructurable {
     public var isEmpty: Bool {
-        return front == nil
+        return head == nil
     }
 
     public func peek() -> T? {
-        return front?.value
+        return head?.value
     }
 }
