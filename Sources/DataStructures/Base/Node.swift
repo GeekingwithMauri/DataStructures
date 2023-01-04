@@ -5,8 +5,7 @@ final class Node<T> {
     var next: Node?
     var previous: Node?
 
-    init(value: T, next: Node? = nil) {
+    init(value: T) {
         self.value = value
-        self.next = next
     }
 }
