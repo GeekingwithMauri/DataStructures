@@ -102,4 +102,15 @@ final class LinkedListTests: XCTestCase {
         XCTAssertEqual(frontValue, 1, "Peeking method isn't working on queue")
         XCTAssertEqual(sut.count, 2, "Peeking method is altering queue elements count")
     }
+
+    func test_listLinkage() {
+        // Given
+        let stubbedArray = [1, 2, 3]
+
+        // When
+        let sut = LinkedList<Int>(initialElements: [1, 2, 3])
+
+        // Verify
+        XCTAssertEqual(stubbedArray, sut.buildArray())
+    }
 }

@@ -33,7 +33,7 @@ public final class LinkedList<T> {
         count += 1
     }
 
-    private func pointer(at index: Int) -> Node<T>? {
+    private func node(at index: Int) -> Node<T>? {
         var i = 0
         var pointer = head
 
@@ -50,7 +50,7 @@ public final class LinkedList<T> {
             return
         }
 
-        let pointer = pointer(at: index)
+        let pointer = node(at: index)
         let previousPointer = pointer?.previous
         let nextPointer = pointer?.next
 
@@ -75,7 +75,7 @@ public final class LinkedList<T> {
             return nil
         }
 
-        return pointer(at: index)?.value
+        return node(at: index)?.value
     }
 
     public func print() {
@@ -87,19 +87,34 @@ public final class LinkedList<T> {
 //            let current = memoryAddress(for: pointer)
 //            Swift.print("P: \(previous) \t C: \(current) \t N: \(next))")
             if let value = pointer?.value {
-                Swift.print("\(value)")
+                Swift.print("\(value)", terminator: "\t")
             }
 
             pointer = pointer?.next
         }
+
+        Swift.print()
     }
 
-    private func memoryAddress(for node: Node<T>?) -> String {
-        if let node = node {
-            return "\(Unmanaged.passUnretained(node).toOpaque())"
-        } else {
-            return "nil"
+    public func buildArray() -> [T] {
+        guard !isEmpty, let initialValue = head?.value else {
+            return []
         }
+
+        var pointer = head
+        var i = 0
+        var elements: [T] = Array(repeating: initialValue, count: count)
+
+        while pointer != nil {
+            if let value = pointer?.value {
+                elements[i] = value
+            }
+
+            pointer = pointer?.next
+            i += 1
+        }
+
+        return elements
     }
 }
 
