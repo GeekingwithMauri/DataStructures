@@ -1,3 +1,3 @@
 # DataStructures
 
-A description of this package.
+Elementary data structures implemented in Swift language
