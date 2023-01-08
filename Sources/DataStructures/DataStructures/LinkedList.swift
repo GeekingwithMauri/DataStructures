@@ -1,8 +1,8 @@
 import Foundation
 
 public final class LinkedList<T> {
-    var head: Node<T>?
-    var tail: Node<T>?
+    public var head: Node<T>?
+    public var tail: Node<T>?
 
     public var count: Int
     public typealias Element = T
@@ -33,7 +33,7 @@ public final class LinkedList<T> {
         count += 1
     }
 
-    private func node(at index: Int) -> Node<T>? {
+    public func node(at index: Int) -> Node<T>? {
         var i = 0
         var pointer = head
 
