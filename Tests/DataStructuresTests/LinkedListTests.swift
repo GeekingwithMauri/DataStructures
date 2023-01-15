@@ -1,5 +1,6 @@
 import XCTest
 @testable import DataStructures
+import Foundation
 
 final class LinkedListTests: XCTestCase {
     let stubbedNumberOfElements: Int = 6
@@ -112,5 +113,18 @@ final class LinkedListTests: XCTestCase {
 
         // Verify
         XCTAssertEqual(stubbedArray, sut.buildArray())
+    }
+
+    func test_listElementCount_forArrayInitialization() {
+        // Given
+        let stubbedArray = [1, 2, 3]
+
+        // When
+        let sut = LinkedList<Int>(initialElements: [1, 2, 3])
+
+        // Verify
+        XCTAssertEqual(sut.count,
+                       stubbedArray.count,
+                       "Element count isn't properly set whenever the linked list is initialized with an array")
     }
 }
