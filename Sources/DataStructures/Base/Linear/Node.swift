@@ -1,3 +1,10 @@
+//
+//  Node.swift
+//
+//
+//  Created by Mauricio Chirino on 20/1/23.
+//
+
 import Foundation
 
 public final class Node<T> {

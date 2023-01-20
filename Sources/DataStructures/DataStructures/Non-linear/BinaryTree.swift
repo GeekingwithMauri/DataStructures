@@ -7,10 +7,10 @@
 
 import Foundation
 
-final class BinaryTree<T: Numeric> {
+public final class BinaryTree<T: Numeric & Comparable> {
     var root: TreeNode<T>?
 
-    func insert(_ value: T) {
+    public func insert(_ value: T) {
         let newNode = TreeNode(value)
         if root == nil {
             root = newNode
