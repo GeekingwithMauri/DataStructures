@@ -38,20 +38,23 @@ final class MinHeapTests: XCTestCase {
 
     func test_guaranteeMinHeapExtraction_alwaysReturnsTheSmallestValue() throws {
         // Given
-        var smallest = 0
-
-        // When
+        var i = 1
         let sut = preLoadHeap()
 
+        // When
+        var smallest = try XCTUnwrap(sut.extractMin(),
+                                     "Could not retrieve the first smallest number")
+
         // Verify
-        try (1...sut.count).forEach { i in
+        while !sut.isEmpty {
             let currentMin = try XCTUnwrap(sut.extractMin(),
                                            "Could not retrieve smallest number at iteration \(i)")
             print("Current minimum: \(currentMin)")
-            XCTAssertGreaterThanOrEqual(currentMin,
+            XCTAssertLessThanOrEqual(currentMin,
                                         smallest,
                                         "Min heap was unbalanced at iteration \(i)")
             smallest = currentMin
+            i += 1
         }
     }
 }

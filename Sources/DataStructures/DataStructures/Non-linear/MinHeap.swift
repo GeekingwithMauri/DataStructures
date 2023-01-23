@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class MinHeapNode {
-    let value: Int
+class MinHeapNode {
+    var value: Int
     var parent: MinHeapNode?
     var left: MinHeapNode?
     var right: MinHeapNode?
@@ -18,13 +18,14 @@ final class MinHeapNode {
     }
 }
 
-final class MinHeap {
+class MinHeap {
     var root: MinHeapNode?
-    var count: Int
 
     var isEmpty: Bool {
         root == nil
     }
+
+    var count: Int
 
     init() {
         count = 0
@@ -32,7 +33,6 @@ final class MinHeap {
 
     func insert(_ value: Int) {
         let newNode = MinHeapNode(value)
-
         if let root = root {
             insert(node: newNode, at: root)
         } else {
@@ -49,6 +49,7 @@ final class MinHeap {
             } else {
                 parent.left = node
                 node.parent = parent
+                siftUp(node)
             }
         } else {
             if let right = parent.right {
@@ -56,6 +57,7 @@ final class MinHeap {
             } else {
                 parent.right = node
                 node.parent = parent
+                siftUp(node)
             }
         }
     }
@@ -64,9 +66,7 @@ final class MinHeap {
         guard let root = root else {
             return nil
         }
-
         let minNode = findMinNode(root)
-
         if minNode.parent == nil {
             // minNode is root
             self.root = nil
@@ -77,8 +77,20 @@ final class MinHeap {
                 minNode.parent?.right = nil
             }
         }
-
+        if let left = minNode.left, let right = minNode.right {
+            self.root = left
+            left.parent = nil
+            insert(node: right, at: root)
+        } else if let left = minNode.left {
+            self.root = left
+            left.parent = nil
+        } else if let right = minNode.right {
+            self.root = right
+            right.parent = nil
+        }
+        siftDown(root)
         count -= 1
+
         return minNode.value
     }
 
@@ -87,6 +99,34 @@ final class MinHeap {
             return findMinNode(left)
         } else {
             return node
+        }
+    }
+
+    private func siftUp(_ node: MinHeapNode) {
+        var current = node
+
+        while var parent = current.parent, parent.value > current.value {
+            swap(&parent.value, &current.value)
+            current = parent
+        }
+    }
+
+    private func siftDown(_ node: MinHeapNode) {
+        var current = node
+        while let left = current.left {
+            var smallest = current
+            if left.value < smallest.value {
+                smallest = left
+            }
+            if let right = current.right, right.value < smallest.value {
+                smallest = right
+            }
+            if smallest !== current {
+                swap(&smallest.value, &current.value)
+                current = smallest
+            } else {
+                break
+            }
         }
     }
 }
