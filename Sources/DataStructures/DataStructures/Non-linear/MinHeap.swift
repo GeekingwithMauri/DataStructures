@@ -33,6 +33,7 @@ class MinHeap {
 
     func insert(_ value: Int) {
         let newNode = MinHeapNode(value)
+
         if let root = root {
             insert(node: newNode, at: root)
         } else {
@@ -43,23 +44,7 @@ class MinHeap {
     }
 
     private func insert(node: MinHeapNode, at parent: MinHeapNode) {
-        if node.value < parent.value {
-            if let left = parent.left {
-                insert(node: node, at: left)
-            } else {
-                parent.left = node
-                node.parent = parent
-                siftUp(node)
-            }
-        } else {
-            if let right = parent.right {
-                insert(node: node, at: right)
-            } else {
-                parent.right = node
-                node.parent = parent
-                siftUp(node)
-            }
-        }
+
     }
 
     func extractMin() -> Int? {
@@ -113,6 +98,7 @@ class MinHeap {
 
     private func siftDown(_ node: MinHeapNode) {
         var current = node
+
         while let left = current.left {
             var smallest = current
             if left.value < smallest.value {
