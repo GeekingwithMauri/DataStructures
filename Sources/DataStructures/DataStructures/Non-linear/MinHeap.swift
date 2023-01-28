@@ -7,96 +7,96 @@
 
 import Foundation
 
-class MinHeapNode {
+final class HeapNode {
     var value: Int
-    var parent: MinHeapNode?
-    var left: MinHeapNode?
-    var right: MinHeapNode?
+    var parent: HeapNode?
+    var left: HeapNode?
+    var right: HeapNode?
 
     init(_ value: Int) {
         self.value = value
     }
 }
 
-class MinHeap {
-    var root: MinHeapNode?
+final class MinHeap {
+    var count: Int
+    var root: HeapNode?
 
     var isEmpty: Bool {
         root == nil
     }
-
-    var count: Int
 
     init() {
         count = 0
     }
 
     func insert(_ value: Int) {
-        let newNode = MinHeapNode(value)
+        let newNode = HeapNode(value)
 
-        if let root = root {
-            insert(node: newNode, at: root)
-        } else {
+        if isEmpty {
             root = newNode
+        } else {
+            insert(node: newNode)
         }
+
+        preOrderTraversal(node: root)
+        print("=====")
 
         count += 1
     }
 
-    private func insert(node: MinHeapNode, at parent: MinHeapNode) {
+    private func insert(node: HeapNode) {
+        var pointer = root
 
+        while pointer?.left != nil {
+            pointer = pointer?.left
+        }
+
+        if let parent = pointer?.parent {
+            if parent.left == nil {
+                 parent.left = node
+                node.parent = parent
+            } else if parent.right == nil {
+                parent.right = node
+                node.parent = parent
+            } else {
+                insert(node, at: pointer)
+            }
+
+        } else {
+            insert(node, at: pointer)
+        }
+
+        siftUp(node)
+    }
+
+    private func insert(_ node: HeapNode, at pointer: HeapNode?) {
+        pointer?.left = node
+        node.parent = pointer
+    }
+
+    private func preOrderTraversal(node: HeapNode?) {
+        if let currentNode = node {
+            print(currentNode.value)
+            preOrderTraversal(node: currentNode.left)
+            preOrderTraversal(node: currentNode.right)
+        }
     }
 
     func extractMin() -> Int? {
-        guard let root = root else {
-            return nil
-        }
-        let minNode = findMinNode(root)
-        if minNode.parent == nil {
-            // minNode is root
-            self.root = nil
-        } else {
-            if minNode.parent?.left === minNode {
-                minNode.parent?.left = nil
-            } else {
-                minNode.parent?.right = nil
-            }
-        }
-        if let left = minNode.left, let right = minNode.right {
-            self.root = left
-            left.parent = nil
-            insert(node: right, at: root)
-        } else if let left = minNode.left {
-            self.root = left
-            left.parent = nil
-        } else if let right = minNode.right {
-            self.root = right
-            right.parent = nil
-        }
-        siftDown(root)
-        count -= 1
-
-        return minNode.value
+        nil
     }
 
-    private func findMinNode(_ node: MinHeapNode) -> MinHeapNode {
-        if let left = node.left {
-            return findMinNode(left)
-        } else {
-            return node
-        }
-    }
-
-    private func siftUp(_ node: MinHeapNode) {
+    private func siftUp(_ node: HeapNode) {
         var current = node
 
-        while var parent = current.parent, parent.value > current.value {
+        while let parent = current.parent, parent.value > current.value {
             swap(&parent.value, &current.value)
             current = parent
         }
     }
 
-    private func siftDown(_ node: MinHeapNode) {
+    private func siftDown(_ node: HeapNode) {
         var current = node
 
         while let left = current.left {

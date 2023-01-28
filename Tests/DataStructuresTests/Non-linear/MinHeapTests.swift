@@ -23,6 +23,17 @@ final class MinHeapTests: XCTestCase {
         XCTAssertEqual(sut.count, iterations, "Internal count isn't working as expected")
     }
 
+    func test_guaranteeSifUpAfterAdditions() throws {
+        // Given
+        let sut = MinHeap()
+
+        // Verify prints
+        sut.insert(15)
+        sut.insert(10)
+        sut.insert(20)
+        sut.insert(0)
+    }
+
     func test_guaranteeElementsAreProperlyDiscounted() {
         // Given
         let sut = preLoadHeap()
