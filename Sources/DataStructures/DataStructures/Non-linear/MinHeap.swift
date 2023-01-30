@@ -27,6 +27,7 @@ extension HeapNode: Equatable {
 }
 
 final class MinHeap {
+    private var insertionTrackingQueue: Queue<HeapNode>
     var count: Int
     var root: HeapNode?
     var bottom: HeapNode?
@@ -36,48 +37,70 @@ final class MinHeap {
     }
 
     init() {
+        insertionTrackingQueue = Queue<HeapNode>()
         count = 0
     }
 
-    func insert(_ value: Int) {
+    func insert(_ value: Int, debugPrint: Bool = false) {
         let newNode = HeapNode(value)
 
         if isEmpty {
             root = newNode
             bottom = root
+            insertionTrackingQueue.enqueue(newNode)
         } else {
             insert(node: newNode)
         }
 
-        preOrderTraversal(node: root)
-        print("=====")
+        if debugPrint {
+            print("=====")
+            preOrderTraversal(node: root)
+            print("=====")
+        }
 
         count += 1
     }
 
     private func insert(node: HeapNode) {
-        var pointer = root
+        var pointer = insertionTrackingQueue.peek()
+//        var pointer = root
+//
+//        while pointer?.left != nil {
+//            pointer = pointer?.left
+//        }
 
-        while pointer?.left != nil {
-            pointer = pointer?.left
-        }
-
-        if let parent = pointer?.parent {
-            if parent.left == nil {
-                parent.left = node
-                node.parent = parent
-            } else if parent.right == nil {
-                parent.right = node
-                node.parent = parent
-            } else {
-                insert(node, at: pointer)
-            }
-
+        if pointer?.left == nil {
+            pointer?.left = node
+            node.parent = pointer
+        } else if pointer?.right == nil {
+            pointer?.right = node
+            node.parent = pointer
         } else {
-            insert(node, at: pointer)
+            insertionTrackingQueue.dequeue()
+            pointer = insertionTrackingQueue.peek()
+            pointer?.left = node
+            node.parent = pointer
         }
+
+
+
+//        if let parent = pointer?.parent {
+//            if parent.left == nil {
+//                parent.left = node
+//                node.parent = parent
+//            } else if parent.right == nil {
+//                parent.right = node
+//                node.parent = parent
+//            } else {
+//                insert(node, at: pointer)
+//            }
+//
+//        } else {
+//            insert(node, at: pointer)
+//        }
 
         siftUp(node)
+        insertionTrackingQueue.enqueue(node)
         bottom = node
     }
 
@@ -98,7 +121,7 @@ final class MinHeap {
         return root?.value
     }
 
-    func extractMin() -> Int? {
+    func extractMin(debugPrint: Bool = false) -> Int? {
         guard let currentMin = root?.value else {
             return nil
         }
@@ -124,9 +147,12 @@ final class MinHeap {
 
         count -= 1
 
-        print("+++++++")
-        preOrderTraversal(node: root)
-        print("+++++++")
+        if debugPrint {
+            print("+++++++")
+            preOrderTraversal(node: root)
+            print("+++++++")
+        }
+
 
         return currentMin
     }
@@ -143,12 +169,12 @@ final class MinHeap {
 
     /// Restore Heap balance after root node update
     private func siftDown(_ node: HeapNode) {
-        if let rightChild = node.right, node.value > rightChild.value {
-            swap(&rightChild.value, &node.value)
-            siftDown(rightChild)
-        } else if let leftChild = node.left, node.value > leftChild.value {
+        if let leftChild = node.left, node.value > leftChild.value {
             swap(&leftChild.value, &node.value)
             siftDown(leftChild)
+        } else if let rightChild = node.right, node.value > rightChild.value {
+            swap(&rightChild.value, &node.value)
+            siftDown(rightChild)
         }
     }
 }

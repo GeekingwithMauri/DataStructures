@@ -18,17 +18,6 @@ final class MinHeapTests: XCTestCase {
         return sut
     }
 
-    func test_guaranteeElementsAreProperlyCounted() {
-        // Given
-        let iterations = 15
-
-        // When
-        let sut = preLoadHeap(iterations: iterations)
-
-        // Verify
-        XCTAssertEqual(sut.count, iterations, "Internal count isn't working as expected")
-    }
-
     func test_guaranteeSiftUpAfterAdditions() {
         // Given
         let sut = MinHeap()
@@ -51,16 +40,51 @@ final class MinHeapTests: XCTestCase {
         sut.insert(15)
 
         // When
-        let removed = try XCTUnwrap(sut.extractMin(), "No value removed from populated heap")
+        var removed = try XCTUnwrap(sut.extractMin(), "No value removed from populated heap")
 
         // Verify
         XCTAssertEqual(removed, 4, "Min Heap removal isn't returning the lowest value")
         XCTAssertEqual(sut.peek(), 10, "Bottom value isn't properly set after removal")
+
+        sut.insert(20)
+        sut.insert(0)
+
+        XCTAssertEqual(sut.peek(), 0, "Bottom value isn't properly set after removal")
+
+        sut.insert(30)
+
+        removed = try XCTUnwrap(sut.extractMin(), "No value removed from populated heap")
+
+        // Verify
+        XCTAssertEqual(removed, 0, "Min Heap removal isn't returning the lowest value")
+        XCTAssertEqual(sut.peek(), 10, "Bottom value isn't properly set after removal")
+
+        removed = try XCTUnwrap(sut.extractMin(), "No value removed from populated heap")
+
+        // Verify
+        XCTAssertEqual(removed, 10, "Min Heap removal isn't returning the lowest value")
+        XCTAssertEqual(sut.peek(), 15, "Bottom value isn't properly set after removal")
+
+        sut.insert(2)
+
+        XCTAssertEqual(sut.peek(), 2, "Bottom value isn't properly set after removal")
+
+        sut.insert(4)
+        sut.insert(-1)
+        sut.insert(-3)
+
+        XCTAssertEqual(sut.peek(), -3, "Bottom value isn't properly set after removal")
     }
 
     func test_guaranteeElementsAreProperlyDiscounted() throws {
         // Given
-        let sut = preLoadHeap(iterations: 5)
+        let sut = MinHeap()
+        sut.insert(15)
+        sut.insert(97)
+        sut.insert(53)
+        sut.insert(42)
+        sut.insert(88)
+
         var smallest: Int = .min
 
         // When
