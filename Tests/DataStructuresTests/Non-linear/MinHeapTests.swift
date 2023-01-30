@@ -2,11 +2,17 @@
 import XCTest
 
 final class MinHeapTests: XCTestCase {
-    private func preLoadHeap(upperBound: Int = 100, iterations: Int = 15) -> MinHeap {
+    private func preLoadHeap(upperBound: Int = 100,
+                             iterations: Int = 15) -> MinHeap {
         let sut = MinHeap()
+        var randomSet = Set<Int>()
 
         (1...iterations).forEach { _ in
-            sut.insert(Int.random(in: 1...upperBound))
+            randomSet.insert(Int.random(in: 1...upperBound))
+        }
+
+        while !randomSet.isEmpty {
+            sut.insert(randomSet.removeFirst())
         }
 
         return sut
@@ -14,7 +20,7 @@ final class MinHeapTests: XCTestCase {
 
     func test_guaranteeElementsAreProperlyCounted() {
         // Given
-        let iterations = 5
+        let iterations = 15
 
         // When
         let sut = preLoadHeap(iterations: iterations)
@@ -23,24 +29,45 @@ final class MinHeapTests: XCTestCase {
         XCTAssertEqual(sut.count, iterations, "Internal count isn't working as expected")
     }
 
-    func test_guaranteeSifUpAfterAdditions() throws {
+    func test_guaranteeSiftUpAfterAdditions() {
         // Given
         let sut = MinHeap()
 
-        // Verify prints
-        sut.insert(15)
+        // When
         sut.insert(10)
-        sut.insert(20)
-        sut.insert(0)
+        sut.insert(4)
+        sut.insert(15)
+        sut.insert(2)
+
+        // Verify
+        XCTAssertEqual(sut.bottom?.value, 10, "Bottom value isn't properly set")
     }
 
-    func test_guaranteeElementsAreProperlyDiscounted() {
+    func test_guaranteeSiftDownAfterRemovals() throws {
         // Given
-        let sut = preLoadHeap()
+        let sut = MinHeap()
+        sut.insert(10)
+        sut.insert(4)
+        sut.insert(15)
+
+        // When
+        let removed = try XCTUnwrap(sut.extractMin(), "No value removed from populated heap")
+
+        // Verify
+        XCTAssertEqual(removed, 4, "Min Heap removal isn't returning the lowest value")
+        XCTAssertEqual(sut.peek(), 10, "Bottom value isn't properly set after removal")
+    }
+
+    func test_guaranteeElementsAreProperlyDiscounted() throws {
+        // Given
+        let sut = preLoadHeap(iterations: 5)
+        var smallest: Int = .min
 
         // When
         while !sut.isEmpty {
-            _ = sut.extractMin()
+            let currentMin = try XCTUnwrap(sut.extractMin(), "No min value to be extract from populated heap")
+            XCTAssertGreaterThan(currentMin, smallest)
+            smallest = currentMin
         }
 
         // Verify
@@ -50,7 +77,7 @@ final class MinHeapTests: XCTestCase {
     func test_guaranteeMinHeapExtraction_alwaysReturnsTheSmallestValue() throws {
         // Given
         var i = 1
-        let sut = preLoadHeap()
+        let sut = preLoadHeap(iterations: 5)
 
         // When
         var smallest = try XCTUnwrap(sut.extractMin(),

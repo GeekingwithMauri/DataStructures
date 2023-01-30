@@ -18,9 +18,18 @@ final class HeapNode {
     }
 }
 
+extension HeapNode: Equatable {
+    static func == (lhs: HeapNode, rhs: HeapNode) -> Bool {
+        return lhs.left == rhs.left &&
+        lhs.right == rhs.right &&
+        lhs.parent == rhs.parent
+    }
+}
+
 final class MinHeap {
     var count: Int
     var root: HeapNode?
+    var bottom: HeapNode?
 
     var isEmpty: Bool {
         root == nil
@@ -35,6 +44,7 @@ final class MinHeap {
 
         if isEmpty {
             root = newNode
+            bottom = root
         } else {
             insert(node: newNode)
         }
@@ -54,7 +64,7 @@ final class MinHeap {
 
         if let parent = pointer?.parent {
             if parent.left == nil {
-                 parent.left = node
+                parent.left = node
                 node.parent = parent
             } else if parent.right == nil {
                 parent.right = node
@@ -68,6 +78,7 @@ final class MinHeap {
         }
 
         siftUp(node)
+        bottom = node
     }
 
     private func insert(_ node: HeapNode, at pointer: HeapNode?) {
@@ -83,10 +94,44 @@ final class MinHeap {
         }
     }
 
-    func extractMin() -> Int? {
-        nil
+    func peek() -> Int? {
+        return root?.value
     }
 
+    func extractMin() -> Int? {
+        guard let currentMin = root?.value else {
+            return nil
+        }
+
+        var pointer = root
+
+        while pointer?.left != nil {
+            pointer = pointer?.left
+        }
+
+        if let parent = pointer?.parent, let root = root {
+            if let rightMostChild = parent.right {
+                swap(&rightMostChild.value, &root.value)
+                parent.right = nil
+            } else if let leftMostChild = parent.left {
+                swap(&leftMostChild.value, &root.value)
+                parent.left = nil
+            }
+            siftDown(root)
+        } else {
+            root = nil
+        }
+
+        count -= 1
+
+        print("+++++++")
+        preOrderTraversal(node: root)
+        print("+++++++")
+
+        return currentMin
+    }
+
+    /// Restore Heap balance going up after last node insertion
     private func siftUp(_ node: HeapNode) {
         var current = node
 
@@ -96,23 +141,14 @@ final class MinHeap {
         }
     }
 
+    /// Restore Heap balance after root node update
     private func siftDown(_ node: HeapNode) {
-        var current = node
-
-        while let left = current.left {
-            var smallest = current
-            if left.value < smallest.value {
-                smallest = left
-            }
-            if let right = current.right, right.value < smallest.value {
-                smallest = right
-            }
-            if smallest !== current {
-                swap(&smallest.value, &current.value)
-                current = smallest
-            } else {
-                break
-            }
+        if let rightChild = node.right, node.value > rightChild.value {
+            swap(&rightChild.value, &node.value)
+            siftDown(rightChild)
+        } else if let leftChild = node.left, node.value > leftChild.value {
+            swap(&leftChild.value, &node.value)
+            siftDown(leftChild)
         }
     }
 }
