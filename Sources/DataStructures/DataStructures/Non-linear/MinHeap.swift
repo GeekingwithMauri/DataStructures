@@ -75,26 +75,13 @@ final class MinHeap {
 
             if current.right == nil {
                 let newNode = HeapNode(value, parent: current)
-                current.right = HeapNode(value, parent: current)
+                current.right = newNode
                 siftUp(newNode)
                 break
             } else {
                 queue.enqueue(current.right!)
             }
         }
-
-        //        if pointer?.left == nil {
-        //            pointer?.left = node
-        //            node.parent = pointer
-        //        } else if pointer?.right == nil {
-        //            pointer?.right = node
-        //            node.parent = pointer
-        //        } else {
-        //            insertionQueue.dequeue()
-        //            pointer = insertionQueue.peek()
-        //            pointer?.left = node
-        //            node.parent = pointer
-        //        }
     }
 
     private func preOrderTraversal(node: HeapNode?) {
