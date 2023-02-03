@@ -18,20 +18,6 @@ final class MinHeapTests: XCTestCase {
         return sut
     }
 
-    func test_guaranteeSiftUpAfterAdditions() {
-        // Given
-        let sut = MinHeap()
-
-        // When
-        sut.insert(10)
-        sut.insert(4)
-        sut.insert(15)
-        sut.insert(2)
-
-        // Verify
-        XCTAssertEqual(sut.bottom?.value, 10, "Bottom value isn't properly set")
-    }
-
     func test_guaranteeSiftDownAfterRemovals() throws {
         // Given
         let sut = MinHeap()

@@ -13,8 +13,9 @@ final class HeapNode {
     var left: HeapNode?
     var right: HeapNode?
 
-    init(_ value: Int) {
+    init(_ value: Int, parent: HeapNode? = nil) {
         self.value = value
+        self.parent = parent
     }
 }
 
@@ -27,29 +28,22 @@ extension HeapNode: Equatable {
 }
 
 final class MinHeap {
-    private var insertionTrackingQueue: Queue<HeapNode>
     var count: Int
     var root: HeapNode?
-    var bottom: HeapNode?
 
     var isEmpty: Bool {
         root == nil
     }
 
     init() {
-        insertionTrackingQueue = Queue<HeapNode>()
         count = 0
     }
 
     func insert(_ value: Int, debugPrint: Bool = false) {
-        let newNode = HeapNode(value)
-
-        if isEmpty {
-            root = newNode
-            bottom = root
-            insertionTrackingQueue.enqueue(newNode)
+        if let root = root {
+            insert(value, from: root)
         } else {
-            insert(node: newNode)
+            root = HeapNode(value)
         }
 
         if debugPrint {
@@ -61,52 +55,46 @@ final class MinHeap {
         count += 1
     }
 
-    private func insert(node: HeapNode) {
-        var pointer = insertionTrackingQueue.peek()
-//        var pointer = root
-//
-//        while pointer?.left != nil {
-//            pointer = pointer?.left
-//        }
+    private func insert(_ value: Int, from root: HeapNode) {
+        let queue = Queue<HeapNode>()
+        queue.enqueue(root)
 
-        if pointer?.left == nil {
-            pointer?.left = node
-            node.parent = pointer
-        } else if pointer?.right == nil {
-            pointer?.right = node
-            node.parent = pointer
-        } else {
-            insertionTrackingQueue.dequeue()
-            pointer = insertionTrackingQueue.peek()
-            pointer?.left = node
-            node.parent = pointer
+        while !queue.isEmpty {
+            guard let current = queue.dequeue() else {
+                break
+            }
+
+            if current.left == nil {
+                let newNode = HeapNode(value, parent: current)
+                current.left = newNode
+                siftUp(newNode)
+                break
+            } else {
+                queue.enqueue(current.left!)
+            }
+
+            if current.right == nil {
+                let newNode = HeapNode(value, parent: current)
+                current.right = HeapNode(value, parent: current)
+                siftUp(newNode)
+                break
+            } else {
+                queue.enqueue(current.right!)
+            }
         }
 
-
-
-//        if let parent = pointer?.parent {
-//            if parent.left == nil {
-//                parent.left = node
-//                node.parent = parent
-//            } else if parent.right == nil {
-//                parent.right = node
-//                node.parent = parent
-//            } else {
-//                insert(node, at: pointer)
-//            }
-//
-//        } else {
-//            insert(node, at: pointer)
-//        }
-
-        siftUp(node)
-        insertionTrackingQueue.enqueue(node)
-        bottom = node
-    }
-
-    private func insert(_ node: HeapNode, at pointer: HeapNode?) {
-        pointer?.left = node
-        node.parent = pointer
+        //        if pointer?.left == nil {
+        //            pointer?.left = node
+        //            node.parent = pointer
+        //        } else if pointer?.right == nil {
+        //            pointer?.right = node
+        //            node.parent = pointer
+        //        } else {
+        //            insertionQueue.dequeue()
+        //            pointer = insertionQueue.peek()
+        //            pointer?.left = node
+        //            node.parent = pointer
+        //        }
     }
 
     private func preOrderTraversal(node: HeapNode?) {
