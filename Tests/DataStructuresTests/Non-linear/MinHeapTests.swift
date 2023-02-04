@@ -57,7 +57,7 @@ final class MinHeapTests: XCTestCase {
 
         sut.insert(4)
         sut.insert(-1)
-        sut.insert(-3, debugPrint: true)
+        sut.insert(-3)
 
         XCTAssertEqual(sut.peek(), -3, "Bottom value isn't properly set after removal")
     }

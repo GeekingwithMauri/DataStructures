@@ -19,14 +19,6 @@ final class HeapNode {
     }
 }
 
-extension HeapNode: Equatable {
-    static func == (lhs: HeapNode, rhs: HeapNode) -> Bool {
-        return lhs.left == rhs.left &&
-        lhs.right == rhs.right &&
-        lhs.parent == rhs.parent
-    }
-}
-
 final class MinHeap {
     var count: Int
     var root: HeapNode?
@@ -84,6 +76,16 @@ final class MinHeap {
         }
     }
 
+    /// Restore Heap balance going up after last node insertion
+    private func siftUp(_ node: HeapNode) {
+        var current = node
+
+        while let parent = current.parent, parent.value > current.value {
+            swap(&parent.value, &current.value)
+            current = parent
+        }
+    }
+
     private func preOrderTraversal(node: HeapNode?) {
         if let currentNode = node {
             print(currentNode.value)
@@ -97,28 +99,43 @@ final class MinHeap {
     }
 
     func extractMin(debugPrint: Bool = false) -> Int? {
-        guard let currentMin = root?.value else {
+        guard count > 1 else {
+            let currentMin = root?.value
+            root = nil
+
+            return currentMin
+        }
+        
+        guard let currentMin = root?.value, let root = root else {
             return nil
         }
 
-        var pointer = root
+        let queue = Queue<HeapNode>()
+        queue.enqueue(root)
 
-        while pointer?.left != nil {
-            pointer = pointer?.left
-        }
-
-        if let parent = pointer?.parent, let root = root {
-            if let rightMostChild = parent.right {
-                swap(&rightMostChild.value, &root.value)
-                parent.right = nil
-            } else if let leftMostChild = parent.left {
-                swap(&leftMostChild.value, &root.value)
-                parent.left = nil
+        while !queue.isEmpty {
+            guard let current = queue.dequeue() else {
+                break
             }
-            siftDown(root)
-        } else {
-            root = nil
+
+            if let leftMostChild = current.left {
+                queue.enqueue(leftMostChild)
+            } else if let lastNode = queue.rear?.value {
+                swap(&lastNode.value, &root.value)
+                lastNode.parent?.right = nil
+                break
+            }
+
+            if let rightMostChild = current.right {
+                queue.enqueue(rightMostChild)
+            } else if let lastNode = queue.rear?.value {
+                swap(&lastNode.value, &root.value)
+                lastNode.parent?.left = nil
+                break
+            }
         }
+
+        siftDown(root)
 
         count -= 1
 
@@ -128,18 +145,7 @@ final class MinHeap {
             print("+++++++")
         }
 
-
         return currentMin
-    }
-
-    /// Restore Heap balance going up after last node insertion
-    private func siftUp(_ node: HeapNode) {
-        var current = node
-
-        while let parent = current.parent, parent.value > current.value {
-            swap(&parent.value, &current.value)
-            current = parent
-        }
     }
 
     /// Restore Heap balance after root node update
