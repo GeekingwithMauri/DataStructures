@@ -12,5 +12,4 @@ Elementary data structures implemented in Swift language
 ### Non-linear data structures
 
 - [Binary tree](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Non-linear/BinaryTree.swift)
-
-- [Min heap (node-based implementation)](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Non-linear/MinHeap.swift)
+- [Min heap node-based implementation](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Non-linear/MinHeap.swift) (implementation from (Back to Back folks)[https://www.youtube.com/watch?v=g9YK6sftDi0])
