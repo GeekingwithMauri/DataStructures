@@ -102,10 +102,11 @@ final class MinHeap {
         guard count > 1 else {
             let currentMin = root?.value
             root = nil
+            count = 0
 
             return currentMin
         }
-        
+
         guard let currentMin = root?.value, let root = root else {
             return nil
         }
@@ -150,12 +151,25 @@ final class MinHeap {
 
     /// Restore Heap balance after root node update
     private func siftDown(_ node: HeapNode) {
-        if let leftChild = node.left, node.value > leftChild.value {
-            swap(&leftChild.value, &node.value)
-            siftDown(leftChild)
-        } else if let rightChild = node.right, node.value > rightChild.value {
-            swap(&rightChild.value, &node.value)
-            siftDown(rightChild)
+        var current = node
+
+        while (current.left != nil || current.right != nil) {
+            var smallest = current
+
+            if (current.left != nil && current.left!.value < smallest.value) {
+                smallest = current.left!
+            }
+
+            if (current.right != nil && current.right!.value < smallest.value) {
+                smallest = current.right!
+            }
+
+            if smallest !== current {
+                swap(&smallest.value, &current.value)
+                current = smallest
+            } else {
+                break
+            }
         }
     }
 }

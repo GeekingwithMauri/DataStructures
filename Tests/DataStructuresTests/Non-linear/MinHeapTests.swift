@@ -76,7 +76,7 @@ final class MinHeapTests: XCTestCase {
         // When
         while !sut.isEmpty {
             let currentMin = try XCTUnwrap(sut.extractMin(), "No min value to be extract from populated heap")
-            XCTAssertGreaterThan(currentMin, smallest)
+            XCTAssertGreaterThan(currentMin, smallest, "Min heap unbalanced")
             smallest = currentMin
         }
 
@@ -87,7 +87,7 @@ final class MinHeapTests: XCTestCase {
     func test_guaranteeMinHeapExtraction_alwaysReturnsTheSmallestValue() throws {
         // Given
         var i = 1
-        let sut = preLoadHeap(iterations: 5)
+        let sut = preLoadHeap(iterations: 55)
 
         // When
         var smallest = try XCTUnwrap(sut.extractMin(),
@@ -98,9 +98,9 @@ final class MinHeapTests: XCTestCase {
             let currentMin = try XCTUnwrap(sut.extractMin(),
                                            "Could not retrieve smallest number at iteration \(i)")
             print("Current minimum: \(currentMin)")
-            XCTAssertLessThanOrEqual(currentMin,
-                                        smallest,
-                                        "Min heap was unbalanced at iteration \(i)")
+            XCTAssertLessThanOrEqual(smallest,
+                                     currentMin,
+                                     "Min heap was unbalanced at iteration \(i)")
             smallest = currentMin
             i += 1
         }
