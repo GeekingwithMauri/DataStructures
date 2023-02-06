@@ -10,7 +10,7 @@ import Foundation
 /// Binary tree implementation for any type of numeric value
 public final class BinaryTree<T: Numeric & Comparable> {
     /// Nodes count
-    var count: Int
+    public var count: Int
 
     /// Tree's root node
     var root: TreeNode<T>?
@@ -85,5 +85,15 @@ public final class BinaryTree<T: Numeric & Comparable> {
             print(currentNode.value)
             postOrderTraversal(node: currentNode.left)
         }
+    }
+}
+
+extension BinaryTree: DataStructurable {
+    public var isEmpty: Bool {
+        return root == nil
+    }
+
+    public func peek() -> T? {
+        return root?.value
     }
 }
