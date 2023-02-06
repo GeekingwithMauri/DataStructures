@@ -7,19 +7,29 @@
 
 import Foundation
 
-final class MinHeap<T: Numeric & Comparable> {
-    var count: Int
+/// `Min heap` data structure
+public final class MinHeap<T: Numeric & Comparable> {
     var root: TreeNode<T>?
+    public var count: Int
 
-    var isEmpty: Bool {
-        root == nil
-    }
-
-    init() {
+    /// Initializes the `Min heap` data structure
+    /// - Parameter initialValues: optionally, passes a generic array to base the initialization of data from
+    init(_ initialValues: [T] = []) {
         count = 0
+
+        initialValues.forEach {
+            insert($0)
+        }
     }
 
-    func insert(_ value: T, debugPrint: Bool = false) {
+    /// Inserts any given value.
+    /// - Parameters:
+    ///   - value: any valid numeric value to be inserted into the heap
+    ///   - debugPrint: optionally, activate this flag if you want to look the state of the heap after the insertion.
+    ///   The chosen print algorithm is pre order traversal. Defaults to `false`
+    ///
+    /// While this method guarantees O(1) access to the lowest value at all times, the nature to of the algorithm's internal working to do so is in a O(log n) fashion due to nodes' tree balancing after each operation (at worst case scenario)
+    public func insert(_ value: T, debugPrint: Bool = false) {
         if let root = root {
             insert(value, from: root)
         } else {
@@ -27,9 +37,8 @@ final class MinHeap<T: Numeric & Comparable> {
         }
 
         if debugPrint {
-            print("=====")
             preOrderTraversal(node: root)
-            print("=====")
+            print("\n=====")
         }
 
         count += 1
@@ -76,17 +85,19 @@ final class MinHeap<T: Numeric & Comparable> {
 
     private func preOrderTraversal(node: TreeNode<T>?) {
         if let currentNode = node {
-            print(currentNode.value)
+            print(currentNode.value, terminator: " ")
             preOrderTraversal(node: currentNode.left)
             preOrderTraversal(node: currentNode.right)
         }
     }
 
-    func peek() -> T? {
-        return root?.value
-    }
-
-    func extractMin(debugPrint: Bool = false) -> T? {
+    /// Removes the lowest value from the heap
+    /// - Parameters:
+    ///   - debugPrint: optionally, activate this flag if you want to look the state of the heap after the insertion.
+    ///   The chosen print algorithm is pre order traversal. Defaults to `false`
+    ///
+    /// While this method guarantees O(1) access to the lowest value at all times, the nature to of the algorithm's internal working to do so is in a O(log n) fashion due to nodes' tree balancing after each operation (at worst case scenario)
+    public func extractMin(debugPrint: Bool = false) -> T? {
         guard count > 1 else {
             let currentMin = root?.value
             root = nil
@@ -129,9 +140,8 @@ final class MinHeap<T: Numeric & Comparable> {
         count -= 1
 
         if debugPrint {
-            print("+++++++")
             preOrderTraversal(node: root)
-            print("+++++++")
+            print("\n+++++++")
         }
 
         return currentMin
@@ -159,5 +169,15 @@ final class MinHeap<T: Numeric & Comparable> {
                 break
             }
         }
+    }
+}
+
+extension MinHeap: DataStructurable {
+    public var isEmpty: Bool {
+        root == nil
+    }
+
+    public func peek() -> T? {
+        return root?.value
     }
 }
