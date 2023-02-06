@@ -9,10 +9,12 @@ import Foundation
 
 public final class TreeNode<T: Numeric> {
     var value: T
+    var parent: TreeNode?
     var left: TreeNode?
     var right: TreeNode?
 
-    init(_ value: T) {
+    init(_ value: T, parent: TreeNode? = nil) {
         self.value = value
+        self.parent = parent
     }
 }

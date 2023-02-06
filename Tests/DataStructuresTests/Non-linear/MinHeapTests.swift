@@ -3,8 +3,8 @@ import XCTest
 
 final class MinHeapTests: XCTestCase {
     private func preLoadHeap(upperBound: Int = 100,
-                             iterations: Int = 15) -> MinHeap {
-        let sut = MinHeap()
+                             iterations: Int = 15) -> MinHeap<Int> {
+        let sut = MinHeap<Int>()
         var randomSet = Set<Int>()
 
         (1...iterations).forEach { _ in
@@ -20,7 +20,7 @@ final class MinHeapTests: XCTestCase {
 
     func test_guaranteeSiftDownAfterRemovals() throws {
         // Given
-        let sut = MinHeap()
+        let sut = MinHeap<Int>()
         sut.insert(10)
         sut.insert(4)
         sut.insert(15)
@@ -64,7 +64,7 @@ final class MinHeapTests: XCTestCase {
 
     func test_guaranteeElementsAreProperlyDiscounted() throws {
         // Given
-        let sut = MinHeap()
+        let sut = MinHeap<Int>()
         sut.insert(15)
         sut.insert(97)
         sut.insert(53)

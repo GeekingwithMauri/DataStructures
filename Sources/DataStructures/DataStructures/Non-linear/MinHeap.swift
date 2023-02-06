@@ -7,21 +7,9 @@
 
 import Foundation
 
-final class HeapNode {
-    var value: Int
-    var parent: HeapNode?
-    var left: HeapNode?
-    var right: HeapNode?
-
-    init(_ value: Int, parent: HeapNode? = nil) {
-        self.value = value
-        self.parent = parent
-    }
-}
-
-final class MinHeap {
+final class MinHeap<T: Numeric & Comparable> {
     var count: Int
-    var root: HeapNode?
+    var root: TreeNode<T>?
 
     var isEmpty: Bool {
         root == nil
@@ -31,11 +19,11 @@ final class MinHeap {
         count = 0
     }
 
-    func insert(_ value: Int, debugPrint: Bool = false) {
+    func insert(_ value: T, debugPrint: Bool = false) {
         if let root = root {
             insert(value, from: root)
         } else {
-            root = HeapNode(value)
+            root = TreeNode(value)
         }
 
         if debugPrint {
@@ -47,8 +35,8 @@ final class MinHeap {
         count += 1
     }
 
-    private func insert(_ value: Int, from root: HeapNode) {
-        let queue = Queue<HeapNode>()
+    private func insert(_ value: T, from root: TreeNode<T>) {
+        let queue = Queue<TreeNode<T>>()
         queue.enqueue(root)
 
         while !queue.isEmpty {
@@ -57,7 +45,7 @@ final class MinHeap {
             }
 
             if current.left == nil {
-                let newNode = HeapNode(value, parent: current)
+                let newNode = TreeNode(value, parent: current)
                 current.left = newNode
                 siftUp(newNode)
                 break
@@ -66,7 +54,7 @@ final class MinHeap {
             }
 
             if current.right == nil {
-                let newNode = HeapNode(value, parent: current)
+                let newNode = TreeNode(value, parent: current)
                 current.right = newNode
                 siftUp(newNode)
                 break
@@ -77,7 +65,7 @@ final class MinHeap {
     }
 
     /// Restore Heap balance going up after last node insertion
-    private func siftUp(_ node: HeapNode) {
+    private func siftUp(_ node: TreeNode<T>) {
         var current = node
 
         while let parent = current.parent, parent.value > current.value {
@@ -86,7 +74,7 @@ final class MinHeap {
         }
     }
 
-    private func preOrderTraversal(node: HeapNode?) {
+    private func preOrderTraversal(node: TreeNode<T>?) {
         if let currentNode = node {
             print(currentNode.value)
             preOrderTraversal(node: currentNode.left)
@@ -94,11 +82,11 @@ final class MinHeap {
         }
     }
 
-    func peek() -> Int? {
+    func peek() -> T? {
         return root?.value
     }
 
-    func extractMin(debugPrint: Bool = false) -> Int? {
+    func extractMin(debugPrint: Bool = false) -> T? {
         guard count > 1 else {
             let currentMin = root?.value
             root = nil
@@ -111,7 +99,7 @@ final class MinHeap {
             return nil
         }
 
-        let queue = Queue<HeapNode>()
+        let queue = Queue<TreeNode<T>>()
         queue.enqueue(root)
 
         while !queue.isEmpty {
@@ -150,7 +138,7 @@ final class MinHeap {
     }
 
     /// Restore Heap balance after root node update
-    private func siftDown(_ node: HeapNode) {
+    private func siftDown(_ node: TreeNode<T>) {
         var current = node
 
         while (current.left != nil || current.right != nil) {
