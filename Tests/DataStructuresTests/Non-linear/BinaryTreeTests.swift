@@ -1,4 +1,4 @@
-@testable import DataStructures
+import DataStructures
 import XCTest
 
 final class BinaryTreeTests: XCTestCase {

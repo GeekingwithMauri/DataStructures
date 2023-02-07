@@ -1,5 +1,5 @@
 import XCTest
-@testable import DataStructures
+import DataStructures
 
 final class DataStructuresTests: XCTestCase {
     let stubbedNumberOfElements: Int = 6

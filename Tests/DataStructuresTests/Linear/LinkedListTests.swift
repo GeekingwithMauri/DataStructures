@@ -1,6 +1,5 @@
 import XCTest
-@testable import DataStructures
-import Foundation
+import DataStructures
 
 final class LinkedListTests: XCTestCase {
     let stubbedNumberOfElements: Int = 6

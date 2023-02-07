@@ -8,13 +8,13 @@
 import Foundation
 
 /// `Min heap` data structure
-public final class MinHeap<T: Numeric & Comparable> {
+public final class MinHeap<T: Numeric & Comparable>: TreePrintable {
     var root: TreeNode<T>?
     public var count: Int
 
     /// Initializes the `Min heap` data structure
     /// - Parameter initialValues: optionally, passes a generic array to base the initialization of data from
-    init(_ initialValues: [T] = []) {
+    public init(_ initialValues: [T] = []) {
         count = 0
 
         initialValues.forEach {
@@ -80,14 +80,6 @@ public final class MinHeap<T: Numeric & Comparable> {
         while let parent = current.parent, parent.value > current.value {
             swap(&parent.value, &current.value)
             current = parent
-        }
-    }
-
-    private func preOrderTraversal(node: TreeNode<T>?) {
-        if let currentNode = node {
-            print(currentNode.value, terminator: " ")
-            preOrderTraversal(node: currentNode.left)
-            preOrderTraversal(node: currentNode.right)
         }
     }
 
