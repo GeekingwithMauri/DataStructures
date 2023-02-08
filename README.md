@@ -1,8 +1,12 @@
 # DataStructures
 
-Elementary data structures implemented in Swift language
+Elementary data structures and algorithms implemented in Swift language
 
 ## Available 
+
+### Algorithms
+
+- [BFS](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Algorithm/BFS.swift)
 
 ### Linear data structures
 - [Queue](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Linear/Queue.swift)
