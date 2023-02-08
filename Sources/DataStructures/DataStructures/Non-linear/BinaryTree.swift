@@ -8,16 +8,21 @@
 import Foundation
 
 /// Binary tree implementation for any type of numeric value
-public final class BinaryTree<T: Numeric & Comparable>: TreePrintable {
-    /// Nodes count
+public final class BinaryTree<T: Numeric & Comparable>: TreeVisitable {
+    public var visitedNode: (TreeNode<T>) -> Void
+
     public var count: Int
 
     /// Tree's root node
     var root: TreeNode<T>?
 
     /// Default initialization
-    public init() {
+    /// - Parameter visitNode: closure that handles every visited node in the tree visitable methods. Defaults to `print` the current node's value
+    public init(visitNode: @escaping (TreeNode<T>) -> Void = { currentNode in
+        print(currentNode.value)
+    }) {
         count = 0
+        self.visitedNode = visitNode
     }
 
     /// Inserts values in a left-most orderly fashion

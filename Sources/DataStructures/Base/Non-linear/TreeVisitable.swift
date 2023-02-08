@@ -1,5 +1,5 @@
 //
-//  TreePrintable.swift
+//  TreeVisitable.swift
 //  
 //
 //  Created by Mauricio Chirino on 7/2/23.
@@ -7,34 +7,38 @@
 
 import Foundation
 
-public protocol TreePrintable {
+/// Sets of possible visiting order for a tree
+public protocol TreeVisitable {
     associatedtype T: Numeric
 
-    /// Prints value in left-current-right order
+    /// Closure that handles every visited node in the tree printable methods.
+    var visitedNode: (TreeNode<T>) -> Void { get set }
+
+    /// Visit value in left-current-right order
     /// - Parameter node: starting point node
     func inOrderTraversal(node: TreeNode<T>?)
 
-    /// Prints value in current-left-right order
+    /// Visit value in current-left-right order
     /// - Parameter node: starting point node
     func preOrderTraversal(node: TreeNode<T>?)
 
-    /// Prints value in right-current-left order
+    /// Visit value in right-current-left order
     /// - Parameter node: starting point node
     func postOrderTraversal(node: TreeNode<T>?)
 }
 
-extension TreePrintable {
+extension TreeVisitable {
     public func inOrderTraversal(node: TreeNode<T>?) {
         if let currentNode = node {
             inOrderTraversal(node: currentNode.left)
-            print(currentNode.value)
+            visitedNode(currentNode)
             inOrderTraversal(node: currentNode.right)
         }
     }
 
     public func preOrderTraversal(node: TreeNode<T>?) {
         if let currentNode = node {
-            print(currentNode.value)
+            visitedNode(currentNode)
             preOrderTraversal(node: currentNode.left)
             preOrderTraversal(node: currentNode.right)
         }
@@ -43,7 +47,7 @@ extension TreePrintable {
     public func postOrderTraversal(node: TreeNode<T>?) {
         if let currentNode = node {
             postOrderTraversal(node: currentNode.right)
-            print(currentNode.value)
+            visitedNode(currentNode)
             postOrderTraversal(node: currentNode.left)
         }
     }

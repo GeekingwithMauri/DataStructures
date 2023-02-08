@@ -8,15 +8,22 @@
 import Foundation
 
 /// `Min heap` data structure
-public final class MinHeap<T: Numeric & Comparable>: TreePrintable {
+public final class MinHeap<T: Numeric & Comparable>: TreeVisitable {
     var root: TreeNode<T>?
     public var count: Int
+    public var visitedNode: (TreeNode<T>) -> Void
 
     /// Initializes the `Min heap` data structure
     /// - Parameter initialValues: optionally, passes a generic array to base the initialization of data from
-    public init(_ initialValues: [T] = []) {
+    /// - Parameter visitNode: closure that handles every visited node in the tree visitable methods. Defaults to `print` the current node's value
+    public init(
+        _ initialValues: [T] = [],
+        visitNode: @escaping (TreeNode<T>) -> Void = { currentNode in
+            print(currentNode.value)
+        }
+    ) {
         count = 0
-
+        self.visitedNode = visitNode
         initialValues.forEach {
             insert($0)
         }

@@ -8,7 +8,7 @@
 import Foundation
 
 public final class TreeNode<T: Numeric> {
-    var value: T
+    public var value: T
     var parent: TreeNode?
     var left: TreeNode?
     var right: TreeNode?
