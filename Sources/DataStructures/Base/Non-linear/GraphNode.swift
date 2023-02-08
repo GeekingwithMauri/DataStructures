@@ -13,7 +13,7 @@ public final class GraphNode<T> {
     public let value: T
     
     /// Adjacent nodes
-    public let neighbors: [GraphNode<T>]
+    public var neighbors: [GraphNode<T>]
     
     /// Whether or node this node has been checked before. Useful for DFS / BFS algorithms
     public var isVisited: Bool
@@ -21,13 +21,13 @@ public final class GraphNode<T> {
     /// Default init
     /// - Parameters:
     ///   - value: node's value
-    ///   - neighbours: adjacent nodes. Defaults to empty (`[]`)
+    ///   - neighbors: adjacent nodes. Defaults to empty (`[]`)
     ///   - isVisited: whether or node this node has been checked before. Defaults to `false`.
     public init(value: T,
-                neighbours: [GraphNode<T>] = [],
+                neighbors: [GraphNode<T>] = [],
                 isVisited: Bool = false) {
         self.value = value
-        self.neighbors = neighbours
+        self.neighbors = neighbors
         self.isVisited = isVisited
     }
 }

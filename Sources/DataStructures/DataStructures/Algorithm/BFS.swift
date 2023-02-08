@@ -8,12 +8,12 @@
 import Foundation
 
 /// Bread-first search algorithm implementation
-public struct BFS<T> {
+public struct BFS {
     /// Searches in a _BFS_ fashion
     /// - Parameters:
     ///   - startingNode: root node to start the search from
     ///   - visitNode: closure function to execute on each visited node
-    public static func search(from startingNode: GraphNode<T>, visitNode: @escaping (GraphNode<T>) -> Void) {
+    static public func search<T>(from startingNode: GraphNode<T>, visitNode: @escaping (GraphNode<T>) -> Void) {
         let queue = Queue<GraphNode<T>>()
         startingNode.isVisited = true
         queue.enqueue(startingNode)
