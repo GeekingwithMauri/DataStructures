@@ -1,4 +1,4 @@
-import DataStructures
+@testable import DataStructures
 import XCTest
 
 final class DFSTests: XCTestCase {
