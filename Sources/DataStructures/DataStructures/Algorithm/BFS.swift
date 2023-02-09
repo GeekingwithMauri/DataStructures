@@ -7,9 +7,9 @@
 
 import Foundation
 
-/// Bread-first search algorithm implementation
+/// Breadth-first search algorithm implementation
 public struct BFS {
-    /// Searches in a _BFS_ fashion
+    /// Transverse a graph in a _BFS_ fashion
     /// - Parameters:
     ///   - startingNode: root node to start the search from
     ///   - visitNode: closure function to execute on each visited node
