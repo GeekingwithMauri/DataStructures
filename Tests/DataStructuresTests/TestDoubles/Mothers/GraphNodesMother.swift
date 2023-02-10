@@ -30,18 +30,12 @@ struct GraphNodesMother {
         let nodeE = GraphNode<String>(value: "E")
         let nodeF = GraphNode<String>(value: "F")
 
-        nodeA.add(edgeNode: nodeB)
-        nodeA.add(edgeNode: nodeC)
-        nodeB.add(edgeNode: nodeA)
-        nodeB.add(edgeNode: nodeD)
-        nodeB.add(edgeNode: nodeE)
-        nodeC.add(edgeNode: nodeA)
-        nodeC.add(edgeNode: nodeF)
+        nodeA.add(edges: [nodeB, nodeC])
+        nodeB.add(edges: [nodeA, nodeD, nodeE])
+        nodeC.add(edges: [nodeA, nodeF])
         nodeD.add(edgeNode: nodeB)
-        nodeE.add(edgeNode: nodeB)
-        nodeE.add(edgeNode: nodeF)
-        nodeF.add(edgeNode: nodeC)
-        nodeF.add(edgeNode: nodeE)
+        nodeE.add(edges: [nodeB, nodeF])
+        nodeF.add(edges: [nodeC, nodeE])
 
         return nodeA
     }
