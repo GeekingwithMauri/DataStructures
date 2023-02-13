@@ -61,6 +61,14 @@ public final class BinaryTree<T: Numeric & Comparable>: TreeVisitable {
             }
         }
     }
+
+    /// Searches for a given value within the current tree
+    /// - Parameter newValue: the desired value to look for
+    /// - Returns: The tree height at which the desired key is located (starting from `0` as the _root_, `1` as the first children and so forth).
+    /// It returns `-1` if the key isn't located in the tree
+    public func search(_ newValue: T) -> Int {
+        return -1
+    }
 }
 
 extension BinaryTree: DataStructurable {

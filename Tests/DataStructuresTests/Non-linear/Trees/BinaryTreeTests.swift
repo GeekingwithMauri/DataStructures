@@ -2,17 +2,6 @@ import DataStructures
 import XCTest
 
 final class BinaryTreeTests: XCTestCase {
-    func preloadedTree() -> BinaryTree<Int> {
-        let stubbedValues = [20, 23, 37, 39, 53, 54, 60, 76, 83, 100]
-        let sut = BinaryTree<Int>()
-
-        for i in stubbedValues {
-            sut.insert(i)
-        }
-
-        return sut
-    }
-
     func test_guaranteeAllValuesAreCounted() {
         // Given
         let definedCount = 10
@@ -25,5 +14,15 @@ final class BinaryTreeTests: XCTestCase {
 
         // Verify
         XCTAssertEqual(sut.count, definedCount, "Internal binary tree count isn't working as expected")
+    }
+
+    func test_guaranteeSearch_findsValueInATree() {
+        // Given
+        let sut = BinaryTreeMother.buildSortedOne()
+
+        // Verify
+        XCTAssertEqual(sut.search(53),
+                       2,
+                       "Search isn't returning the expected tree's height at which the key is located")
     }
 }
