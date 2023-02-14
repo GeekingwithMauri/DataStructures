@@ -18,11 +18,31 @@ final class BinaryTreeTests: XCTestCase {
 
     func test_guaranteeSearch_findsValueInATree() {
         // Given
-        let sut = BinaryTreeMother.buildSortedOne()
+        let sut = BinaryTreeMother.buildSkewOne()
 
         // Verify
         XCTAssertEqual(sut.search(53),
-                       2,
+                       4,
+                       "Search isn't returning the expected tree's height at which the key is located")
+    }
+
+    func test_guaranteeSearch_avoidsEndlessLoopForNonExistent_lowKeys() {
+        // Given
+        let sut = BinaryTreeMother.buildSkewOne()
+
+        // Verify
+        XCTAssertEqual(sut.search(-25),
+                       -1,
+                       "Search isn't returning the expected tree's height at which the key is located")
+    }
+
+    func test_guaranteeSearch_avoidsEndlessLoopForNonExistent_HighKeys() {
+        // Given
+        let sut = BinaryTreeMother.buildSkewOne()
+
+        // Verify
+        XCTAssertEqual(sut.search(2500),
+                       -1,
                        "Search isn't returning the expected tree's height at which the key is located")
     }
 }

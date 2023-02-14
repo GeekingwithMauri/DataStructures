@@ -66,7 +66,30 @@ public final class BinaryTree<T: Numeric & Comparable>: TreeVisitable {
     /// - Parameter newValue: the desired value to look for
     /// - Returns: The tree height at which the desired key is located (starting from `0` as the _root_, `1` as the first children and so forth).
     /// It returns `-1` if the key isn't located in the tree
-    public func search(_ newValue: T) -> Int {
+    public func search(_ keyValue: T) -> Int {
+        guard !isEmpty else {
+            return -1
+        }
+
+        var height = 0
+        var currentNode = root
+
+        while currentNode != nil {
+            guard let currentValue = currentNode?.value else {
+                break
+            }
+
+            if currentValue == keyValue {
+                return height
+            } else if keyValue < currentValue {
+                currentNode = currentNode?.left
+            } else {
+                currentNode = currentNode?.right
+            }
+
+            height += 1
+        }
+
         return -1
     }
 }
