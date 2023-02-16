@@ -18,7 +18,7 @@ final class BinaryTreeTests: XCTestCase {
 
     func test_guaranteeSearch_findsValueInATree() {
         // Given
-        let sut = BinaryTreeMother.buildSkewOne()
+        let sut = BinaryTreeMother.assembleSkewOne()
 
         // Verify
         XCTAssertEqual(sut.search(53),
@@ -28,7 +28,7 @@ final class BinaryTreeTests: XCTestCase {
 
     func test_guaranteeSearch_avoidsEndlessLoopForNonExistent_lowKeys() {
         // Given
-        let sut = BinaryTreeMother.buildSkewOne()
+        let sut = BinaryTreeMother.assembleSkewOne()
 
         // Verify
         XCTAssertEqual(sut.search(-25),
@@ -38,7 +38,7 @@ final class BinaryTreeTests: XCTestCase {
 
     func test_guaranteeSearch_avoidsEndlessLoopForNonExistent_HighKeys() {
         // Given
-        let sut = BinaryTreeMother.buildSkewOne()
+        let sut = BinaryTreeMother.assembleSkewOne()
 
         // Verify
         XCTAssertEqual(sut.search(2500),
