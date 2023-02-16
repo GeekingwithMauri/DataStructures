@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Array where Element == IntegerLiteralType {
-    /// Performs a binary search in the **sorted array**
+    /// Performs a binary search a **sorted array**
     /// - Parameter value: key value to be search for
     /// - Returns: the iteration at which the value was found. Each divide and conquer cycle counts as one iteration
     ///

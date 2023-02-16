@@ -77,4 +77,17 @@ final class BinarySearchTests: XCTestCase {
                                  "\($0) isn't found within the array")
         }
     }
+
+    func test_guaranteeAllValuesAreFound_inReversedArray() {
+        // Given
+        let sut = ArrayMother.assembleSorted()
+
+        // When
+        sut.reversed().forEach {
+            // Verify
+            XCTAssertGreaterThan(sut.binarySearch(for: $0),
+                                 0,
+                                 "\($0) isn't found within the array")
+        }
+    }
 }

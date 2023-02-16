@@ -6,6 +6,7 @@ Elementary data structures and algorithms implemented in Swift language
 
 ### Algorithms
 
+- [Binary search (on integer arrays)](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Algorithm/BinarySearch.swift)
 - [BFS](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Algorithm/BFS.swift)
 - [DFS](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Algorithm/DFS.swift)
 
