@@ -1,4 +1,4 @@
-# DataStructures
+# [DataStructures](https://github.com/GeekingwithMauri/DataStructures)
 
 Elementary data structures and algorithms implemented in Swift language
 
