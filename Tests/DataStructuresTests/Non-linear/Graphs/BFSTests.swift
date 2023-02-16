@@ -8,7 +8,7 @@ final class BFSTests: XCTestCase {
         let assemblesGraphRoot = GraphNodesMother.assembleNumericalConnectedGraph()
 
         // When
-        BFS.search(from: assemblesGraphRoot) { currentNode in
+        assemblesGraphRoot.BFSTraversal(from: assemblesGraphRoot) { currentNode in
             // Verify
             XCTAssertFalse(visitedNodes.contains(currentNode.value), "Node is visited more than once")
             visitedNodes.insert(currentNode.value)
@@ -21,7 +21,7 @@ final class BFSTests: XCTestCase {
         var visitedNodes = [GraphNode<String>]()
 
         // When
-        BFS.search(from: nodeA) { node in
+        nodeA.BFSTraversal(from: nodeA) { node in
             visitedNodes.append(node)
         }
 

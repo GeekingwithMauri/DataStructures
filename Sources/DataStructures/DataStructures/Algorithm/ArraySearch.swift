@@ -1,5 +1,5 @@
 //
-//  BinarySearch.swift
+//  ArraySearch.swift
 //  
 //
 //  Created by Mauricio Chirino on 14/2/23.

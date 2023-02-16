@@ -4,11 +4,15 @@ Elementary data structures and algorithms implemented in Swift language
 
 ## Available 
 
-### Algorithms
+### Search
 
-- [Binary search (on integer arrays)](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Algorithm/BinarySearch.swift)
-- [BFS](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Algorithm/BFS.swift)
-- [DFS](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Algorithm/DFS.swift)
+#### Arrays
+
+- [Binary search (on integer arrays)](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Algorithm/ArraySearch.swift)
+
+#### Graphs
+
+- [BFS and DFS](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Algorithm/GraphNodeSearch.swift)
 
 ### Linear data structures
 - [Queue](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Linear/Queue.swift)
