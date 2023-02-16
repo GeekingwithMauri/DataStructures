@@ -34,7 +34,6 @@ public extension Array where Element == IntegerLiteralType {
             } else {
                 middle = (tail + head) / 2
             }
-//            middle = Int(floor((Double(tail) + Double(head)) / 2))
 
             if self[middle] == value {
                 return iteration

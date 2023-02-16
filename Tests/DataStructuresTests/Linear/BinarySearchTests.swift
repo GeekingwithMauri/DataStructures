@@ -51,4 +51,30 @@ final class BinarySearchTests: XCTestCase {
         // Verify
         XCTAssertEqual(sut.binarySearch(for: 16000), 0, "Value above upper bound shouldn't be found")
     }
+
+    func test_guaranteeAllValuesAreFound_inPairArray() {
+        // Given
+        let sut = ArrayMother.assembleSorted()
+
+        // When
+        sut.forEach {
+            // Verify
+            XCTAssertGreaterThan(sut.binarySearch(for: $0),
+                                 0,
+                                 "\($0) isn't found within the array")
+        }
+    }
+
+    func test_guaranteeAllValuesAreFound_inOddArray() {
+        // Given
+        let sut = ArrayMother.assembleOddSorted()
+
+        // When
+        sut.forEach {
+            // Verify
+            XCTAssertGreaterThan(sut.binarySearch(for: $0),
+                                 0,
+                                 "\($0) isn't found within the array")
+        }
+    }
 }
