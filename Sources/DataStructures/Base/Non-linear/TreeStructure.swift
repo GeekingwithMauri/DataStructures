@@ -18,11 +18,13 @@ public protocol TreeStructure: DataStructurable {
 }
 
 extension TreeStructure {
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         root == nil
     }
 
-    func peek() -> T? {
+    public func peek() -> T? {
         return root?.value
     }
+
+    public func graphicalRepresentation() { }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 /// `Min heap` data structure
 public final class MinHeap<T: Numeric & Comparable>: TreeVisitable {
-    var root: TreeNode<T>?
+    public var root: TreeNode<T>?
     public var count: Int
     public var visitedNode: (TreeNode<T>) -> Void
 
@@ -49,45 +49,6 @@ public final class MinHeap<T: Numeric & Comparable>: TreeVisitable {
         }
 
         count += 1
-    }
-
-    private func insert(_ value: T, from root: TreeNode<T>) {
-        let queue = Queue<TreeNode<T>>()
-        queue.enqueue(root)
-
-        while !queue.isEmpty {
-            guard let current = queue.dequeue() else {
-                break
-            }
-
-            if current.left == nil {
-                let newNode = TreeNode(value, parent: current)
-                current.left = newNode
-                siftUp(newNode)
-                break
-            } else {
-                queue.enqueue(current.left!)
-            }
-
-            if current.right == nil {
-                let newNode = TreeNode(value, parent: current)
-                current.right = newNode
-                siftUp(newNode)
-                break
-            } else {
-                queue.enqueue(current.right!)
-            }
-        }
-    }
-
-    /// Restore Heap balance going up after last node insertion
-    private func siftUp(_ node: TreeNode<T>) {
-        var current = node
-
-        while let parent = current.parent, parent.value > current.value {
-            swap(&parent.value, &current.value)
-            current = parent
-        }
     }
 
     /// Removes the lowest value from the heap
@@ -145,8 +106,55 @@ public final class MinHeap<T: Numeric & Comparable>: TreeVisitable {
 
         return currentMin
     }
+}
 
-    /// Restore Heap balance after root node update
+extension MinHeap: TreeStructure {}
+
+private extension MinHeap {
+    /// Guarantees balanced insertion
+    /// - Parameters:
+    ///   - value: new value entering the heap
+    ///   - root: heap's root
+    func insert(_ value: T, from root: TreeNode<T>) {
+        let queue = Queue<TreeNode<T>>()
+        queue.enqueue(root)
+
+        while !queue.isEmpty {
+            guard let current = queue.dequeue() else {
+                break
+            }
+
+            if current.left == nil {
+                let newNode = TreeNode(value, parent: current)
+                current.left = newNode
+                siftUp(newNode)
+                break
+            } else {
+                queue.enqueue(current.left!)
+            }
+
+            if current.right == nil {
+                let newNode = TreeNode(value, parent: current)
+                current.right = newNode
+                siftUp(newNode)
+                break
+            } else {
+                queue.enqueue(current.right!)
+            }
+        }
+    }
+
+    /// Restores Heap balance going up after last node insertion
+    func siftUp(_ node: TreeNode<T>) {
+        var current = node
+
+        while let parent = current.parent, parent.value > current.value {
+            swap(&parent.value, &current.value)
+            current = parent
+        }
+    }
+
+    /// Restores Heap balance after root node update
     private func siftDown(_ node: TreeNode<T>) {
         var current = node
 
@@ -170,15 +178,3 @@ public final class MinHeap<T: Numeric & Comparable>: TreeVisitable {
         }
     }
 }
-
-extension MinHeap: DataStructurable {
-    public var isEmpty: Bool {
-        root == nil
-    }
-
-    public func peek() -> T? {
-        return root?.value
-    }
-}
-
-private extension MinHeap { }
