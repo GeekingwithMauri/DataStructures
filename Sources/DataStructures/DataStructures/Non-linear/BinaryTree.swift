@@ -14,7 +14,7 @@ public final class BinaryTree<T: Numeric & Comparable>: TreeVisitable {
     public var count: Int
 
     /// Tree's root node
-    var root: TreeNode<T>?
+    public var root: TreeNode<T>?
 
     /// Default initialization
     /// - Parameter visitNode: closure that handles every visited node in the tree visitable methods. Defaults to `print` the current node's value
@@ -94,12 +94,4 @@ public final class BinaryTree<T: Numeric & Comparable>: TreeVisitable {
     }
 }
 
-extension BinaryTree: DataStructurable {
-    public var isEmpty: Bool {
-        return root == nil
-    }
-
-    public func peek() -> T? {
-        return root?.value
-    }
-}
+extension BinaryTree: TreeStructure { }
