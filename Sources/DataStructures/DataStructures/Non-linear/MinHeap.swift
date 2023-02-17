@@ -180,3 +180,5 @@ extension MinHeap: DataStructurable {
         return root?.value
     }
 }
+
+private extension MinHeap { }
