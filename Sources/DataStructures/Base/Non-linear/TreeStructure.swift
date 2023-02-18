@@ -14,7 +14,7 @@ public protocol TreeStructure: DataStructurable {
     var root: TreeNode<T>? { get }
 
     /// Prints the three representation in console, respecting its hierarchical distribution spanning from its root.
-//    func graphicalRepresentation()
+    func graphicalRepresentation()
 }
 
 extension TreeStructure {
@@ -26,20 +26,28 @@ extension TreeStructure {
         return root?.value
     }
 
-    func graphicalRepresentation() {
-        var maximumTabularSpace = treeHeight() - 1
-        let queue = Queue<TreeNode<T>>()
-
+    public func graphicalRepresentation() {
         guard let root = root else {
             return
         }
 
+        let queue = Queue<TreeNode<T>>()
+        var maximumTabularSpace = treeHeight()
+        var treeLevel: Float = 0
         queue.enqueue(root)
 
-        while maximumTabularSpace > 0 {
-            while let currentLevel = queue.dequeue() {
-                let spaces = String(repeating: "\t", count: maximumTabularSpace)
-                print("\(spaces)\(currentLevel.value)")
+        while maximumTabularSpace >= 0 {
+            let leafNumberInCurrentLevel = Int(powf(2, treeLevel))
+            let centering = String(repeating: "\t", count: maximumTabularSpace + 1)
+            print(centering, terminator: "")
+
+            (0..<leafNumberInCurrentLevel).forEach { _ in
+                guard let currentLevel = queue.dequeue() else {
+                    return
+                }
+
+                let spaces = String(repeating: "\t", count: Int(treeLevel))
+                print("\(currentLevel.value)\(spaces)", terminator: "")
 
                 if let leftChild = currentLevel.left {
                     queue.enqueue(leftChild)
@@ -49,11 +57,14 @@ extension TreeStructure {
                     queue.enqueue(rightChild)
                 }
             }
+
+            print()
             maximumTabularSpace -= 1
+            treeLevel += 1
         }
     }
 
     private func treeHeight() -> Int {
-        return Int(log2(Double(count + 1))) - 1
+        return Int(round(log2(Double(count))))
     }
 }

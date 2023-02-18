@@ -11,6 +11,8 @@ final class MinHeapTests: XCTestCase {
             randomSet.insert(Int.random(in: 1...upperBound))
         }
 
+        print("\(randomSet.count): \(randomSet.sorted())")
+
         while !randomSet.isEmpty {
             sut.insert(randomSet.removeFirst())
         }
@@ -104,5 +106,13 @@ final class MinHeapTests: XCTestCase {
             smallest = currentMin
             i += 1
         }
+    }
+
+    func test_heapTerminalPrintal() {
+        // Given
+        let sut = preLoadHeap()
+
+        // Verify
+        sut.graphicalRepresentation()
     }
 }
