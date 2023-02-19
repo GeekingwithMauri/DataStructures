@@ -33,12 +33,13 @@ extension TreeStructure {
 
         let queue = Queue<TreeNode<T>>()
         var maximumTabularSpace = treeHeight()
-        var treeLevel: Float = 0
+        var treeLevel = 0
         queue.enqueue(root)
 
-        while maximumTabularSpace >= 0 {
-            let leafNumberInCurrentLevel = Int(powf(2, treeLevel))
-            let centering = String(repeating: "\t", count: maximumTabularSpace + 1)
+        while maximumTabularSpace > 0 {
+            let leafNumberInCurrentLevel = Int(powf(2, Float(treeLevel)))
+            let floorLevelPadding = Int(powf(2, Float(maximumTabularSpace - 1)))
+            let centering: String = insertPadding(basedOn: treeLevel < treeHeight() - 1, amount: floorLevelPadding - 1)
             print(centering, terminator: "")
 
             (0..<leafNumberInCurrentLevel).forEach { _ in
@@ -46,7 +47,8 @@ extension TreeStructure {
                     return
                 }
 
-                let spaces = String(repeating: "\t", count: Int(treeLevel))
+                let childrenPadding = Int(powf(2, Float(maximumTabularSpace)))
+                let spaces = insertPadding(amount: childrenPadding)
                 print("\(currentLevel.value)\(spaces)", terminator: "")
 
                 if let leftChild = currentLevel.left {
@@ -62,6 +64,10 @@ extension TreeStructure {
             maximumTabularSpace -= 1
             treeLevel += 1
         }
+    }
+
+    private func insertPadding(basedOn condition: Bool = true, amount: Int) -> String {
+        return condition ? String(repeating: "\t", count: amount) : ""
     }
 
     private func treeHeight() -> Int {
