@@ -44,7 +44,7 @@ public final class MinHeap<T: Numeric & Comparable>: TreeVisitable {
         }
 
         if debugPrint {
-            preOrderTraversal(node: root)
+            graphicalRepresentation()
             print("\n=====")
         }
 
@@ -100,7 +100,7 @@ public final class MinHeap<T: Numeric & Comparable>: TreeVisitable {
         count -= 1
 
         if debugPrint {
-            preOrderTraversal(node: root)
+            graphicalRepresentation()
             print("\n+++++++")
         }
 
