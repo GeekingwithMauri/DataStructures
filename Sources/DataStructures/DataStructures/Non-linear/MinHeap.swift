@@ -43,12 +43,12 @@ public final class MinHeap<T: Numeric & Comparable>: TreeVisitable {
             root = TreeNode(value)
         }
 
+        count += 1
+
         if debugPrint {
             graphicalRepresentation()
             print("\n=====")
         }
-
-        count += 1
     }
 
     /// Removes the lowest value from the heap

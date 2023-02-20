@@ -11,8 +11,6 @@ final class MinHeapTests: XCTestCase {
             randomSet.insert(Int.random(in: 1...upperBound))
         }
 
-//        print("\(randomSet.count): \(randomSet.sorted())")
-
         while !randomSet.isEmpty {
             sut.insert(randomSet.removeFirst())
         }
@@ -24,42 +22,42 @@ final class MinHeapTests: XCTestCase {
         // Given
         let sut = MinHeap<Int>()
         sut.insert(10)
-        sut.insert(4)
-        sut.insert(15)
+        sut.insert(4, debugPrint: true)
+        sut.insert(15, debugPrint: true)
 
         // When
-        var removed = try XCTUnwrap(sut.extractMin(), "No value removed from populated heap")
+        var removed = try XCTUnwrap(sut.extractMin(debugPrint: true), "No value removed from populated heap")
 
         // Verify
         XCTAssertEqual(removed, 4, "Min Heap removal isn't returning the lowest value")
         XCTAssertEqual(sut.peek(), 10, "Bottom value isn't properly set after removal")
 
-        sut.insert(20)
-        sut.insert(0)
+        sut.insert(20, debugPrint: true)
+        sut.insert(0, debugPrint: true)
 
         XCTAssertEqual(sut.peek(), 0, "Bottom value isn't properly set after removal")
 
-        sut.insert(30)
+        sut.insert(30, debugPrint: true)
 
-        removed = try XCTUnwrap(sut.extractMin(), "No value removed from populated heap")
+        removed = try XCTUnwrap(sut.extractMin(debugPrint: true), "No value removed from populated heap")
 
         // Verify
         XCTAssertEqual(removed, 0, "Min Heap removal isn't returning the lowest value")
         XCTAssertEqual(sut.peek(), 10, "Bottom value isn't properly set after removal")
 
-        removed = try XCTUnwrap(sut.extractMin(), "No value removed from populated heap")
+        removed = try XCTUnwrap(sut.extractMin(debugPrint: true), "No value removed from populated heap")
 
         // Verify
         XCTAssertEqual(removed, 10, "Min Heap removal isn't returning the lowest value")
         XCTAssertEqual(sut.peek(), 15, "Bottom value isn't properly set after removal")
 
-        sut.insert(2)
+        sut.insert(2, debugPrint: true)
 
         XCTAssertEqual(sut.peek(), 2, "Bottom value isn't properly set after removal")
 
-        sut.insert(4)
-        sut.insert(-1)
-        sut.insert(-3)
+        sut.insert(4, debugPrint: true)
+        sut.insert(-1, debugPrint: true)
+        sut.insert(-3, debugPrint: true)
 
         XCTAssertEqual(sut.peek(), -3, "Bottom value isn't properly set after removal")
     }
@@ -108,11 +106,14 @@ final class MinHeapTests: XCTestCase {
         }
     }
 
-    func test_heapTerminalPrintal() {
+    func test_guaranteeAllElementsArePrinted_byGraphicalPrintalMethod() {
         // Given
-        let sut = preLoadHeap(iterations: 18)
+        let sut = preLoadHeap(iterations: 16)
+
+        // When
+        let printedElements = sut.graphicalRepresentation()
 
         // Verify
-        sut.graphicalRepresentation()
+        XCTAssertEqual(printedElements, sut.count, "There are missing elements to be print")
     }
 }
