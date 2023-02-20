@@ -8,11 +8,11 @@ Elementary data structures and algorithms implemented in Swift language
 
 #### Arrays
 
-- [Binary search (on integer arrays)](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Algorithm/ArraySearch.swift)
+- [Binary search (on integer arrays)](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/Algorithm/ArraySearch.swift)
 
 #### Graphs
 
-- [BFS and DFS](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Algorithm/GraphNodeSearch.swift)
+- [BFS and DFS](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/Algorithm/GraphNodeSearch.swift)
 
 ### Linear data structures
 - [Queue](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Linear/Queue.swift)
@@ -25,6 +25,10 @@ Elementary data structures and algorithms implemented in Swift language
 - [Min heap](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Non-linear/MinHeap.swift) node-based implementation (implementation from [Back to Back folks](https://www.youtube.com/watch?v=g9YK6sftDi0))
 
 ### Helpful algorithms
+
+#### Mathematics
+
+- [Pascal's triangle](https://en.wikipedia.org/wiki/Pascal%27s_triangle): produces the entire coefficient base for the given value.
 
 #### Tree
 
