@@ -26,6 +26,8 @@ Elementary data structures and algorithms implemented in Swift language
 
 ### Helpful algorithms
 
-- **Binary tree hierarchical print**: draws in terminal the hierarchical form of previously loaded tree in memory 
+#### Tree
+
+- `graphicalRepresentation()`: prints in terminal the hierarchical form of previously loaded tree in memory 
 
 ![treeDrawing](Assets/Tree/hierarchicalDrawing.png)
