@@ -23,3 +23,9 @@ Elementary data structures and algorithms implemented in Swift language
 
 - [Binary tree](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Non-linear/BinaryTree.swift)
 - [Min heap](https://github.com/GeekingwithMauri/DataStructures/blob/main/Sources/DataStructures/DataStructures/Non-linear/MinHeap.swift) node-based implementation (implementation from [Back to Back folks](https://www.youtube.com/watch?v=g9YK6sftDi0))
+
+### Helpful algorithms
+
+- **Binary tree hierarchical print**: draws in terminal the hierarchical form of previously loaded tree in memory 
+
+![treeDrawing](Assets/Tree/hierarchicalDrawing.png)

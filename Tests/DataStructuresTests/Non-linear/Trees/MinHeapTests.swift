@@ -2,13 +2,12 @@ import DataStructures
 import XCTest
 
 final class MinHeapTests: XCTestCase {
-    private func preLoadHeap(upperBound: Int = 100,
-                             iterations: Int = 15) -> MinHeap<Int> {
+    private func preLoadHeap(iterations: Int = 15) -> MinHeap<Int> {
         let sut = MinHeap<Int>()
         var randomSet = Set<Int>()
 
         (1...iterations).forEach { _ in
-            randomSet.insert(Int.random(in: 1...upperBound))
+            randomSet.insert(Int.random(in: 1...iterations * 10))
         }
 
         while !randomSet.isEmpty {
@@ -108,7 +107,7 @@ final class MinHeapTests: XCTestCase {
 
     func test_guaranteeAllElementsArePrinted_byGraphicalPrintalMethod() {
         // Given
-        let sut = preLoadHeap(iterations: 16)
+        let sut = preLoadHeap(iterations: 32)
 
         // When
         let printedElements = sut.graphicalRepresentation()
