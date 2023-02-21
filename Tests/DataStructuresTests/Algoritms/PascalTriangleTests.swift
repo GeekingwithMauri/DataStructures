@@ -10,6 +10,14 @@ final class PascalTriangleTests: XCTestCase {
         XCTAssertEqual(resultingBase, [1, 2, 1], "Pascal's triangle isn't properly built")
     }
 
+    func test_triangleIsProperlyBuilt_for5ndDegree() {
+        // Given
+        let resultingBase = PascalTriangle.build(for: 5)
+
+        // Verify
+        XCTAssertEqual(resultingBase, [1, 5, 10, 10, 5, 1], "Pascal's triangle isn't properly built")
+    }
+
     func test_triangleIsProperlyBuilt_for7ndDegree() {
         // Given
         let resultingBase = PascalTriangle.build(for: 7)
