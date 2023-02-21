@@ -28,7 +28,11 @@ Elementary data structures and algorithms implemented in Swift language
 
 #### Mathematics
 
-- [Pascal's triangle](https://en.wikipedia.org/wiki/Pascal%27s_triangle): produces the entire coefficient base for the given value.
+- [Pascal's triangle](https://en.wikipedia.org/wiki/Pascal%27s_triangle): produces any binomial expansion for a given coefficient. It even prints the Pascal's triangle on console formed to reach said result.
+
+| 2nd power | 5th power | 7th power |
+| --- | --- | --- |
+|  ![small](Assets/PascalTriangle/2_basic.png)  |  ![medium](Assets/PascalTriangle/5_medium.png)  | ![large](Assets/PascalTriangle/7_large.png)  |
 
 #### Tree
 
