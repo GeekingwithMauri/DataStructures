@@ -15,7 +15,7 @@ final class BFSTests: XCTestCase {
         }
     }
 
-    func test_expectedTransversalOrder_fromARootNode() throws {
+    func test_expectedTransversalOrder_fromARootNode() {
         // Given
         let nodeA = GraphNodesMother.assembleAlphabeticalGraph()
         var visitedNodes = [GraphNode<String>]()
