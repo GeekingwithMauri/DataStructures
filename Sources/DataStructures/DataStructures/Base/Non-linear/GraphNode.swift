@@ -8,7 +8,7 @@
 import Foundation
 
 /// Generic representation of a graph's node
-public final class GraphNode<T> {
+public final class GraphNode<T: Equatable> {
     /// Current value
     public let value: T
     
@@ -45,5 +45,16 @@ public final class GraphNode<T> {
     /// - Parameter edgeNode: batch of edges to be added
     public func add(edges: [GraphNode<T>]) {
         _neighbors.append(contentsOf: edges)
+    }
+
+    /// Looks for the first neighbor to match a given key
+    /// - Parameter key: key to match from
+    /// - Returns: the first neighbor to match, should it exist.
+    ///
+    /// Complexity: O(n), where n is the amount of neighbors.
+    public func fetchNode(key: T) -> GraphNode<T>? {
+        return _neighbors.first(where: {
+            $0.value == key
+        })
     }
 }
