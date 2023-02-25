@@ -10,17 +10,17 @@ final class HackerRankTests: XCTestCase {
         XCTAssertEqual(result, [6, 6, 12, -1])
     }
 
-    func _test_BFS_example2() {
+    func test_BFS_example2() {
         // Given
-        let result = bfs(n: 4, m: 2, edges: [[4, 2], [1, 2], [1, 3]], s: 1)
+        let result = bfs(n: 4, m: 2, edges: [[1, 2], [1, 3]], s: 1)
 
         // Verify
         XCTAssertEqual(result, [6, 6,-1])
     }
 
-    func _test_BFS_example3() {
+    func test_BFS_example3() {
         // Given
-        let result = bfs(n: 3, m: 1, edges: [[3, 1], [2, 3]], s: 2)
+        let result = bfs(n: 3, m: 1, edges: [[2, 3]], s: 2)
 
         // Verify
         XCTAssertEqual(result, [-1, 6])
@@ -66,13 +66,29 @@ private extension HackerRankTests {
             }
         }
 
-        guard let startingNode = nodesHash.values.first(where: { $0.value == s }) else {
+        guard let startingNode = nodesHash[s] else {
             return [-1]
         }
 
         var result: [Int] = Array(repeating: -1, count: n - 1)
 
         nodesHash.filter({ $0.key != s }).values.sorted(by: { $0.value < $1.value }).forEach { visitingNode in
+            startingNode.BFSTraversal(from: visitingNode) { visitedNode in
+                if result[max(0, visitedNode.value - 2)] == -1 {
+                    result[max(0, visitedNode.value - 2)] = 6
+                } else {
+                    result[max(0, visitedNode.value - 2)] += 6
+                }
+            }
+        }
+
+        return result
+    }
+
+    func visit(_ nodes: [GraphNode<Int>], from startingNode: GraphNode<Int>, totalConnections n: Int) -> [Int] {
+        var result: [Int] = Array(repeating: -1, count: n - 1)
+
+        nodes.forEach { visitingNode in
             startingNode.BFSTraversal(from: visitingNode) { visitedNode in
                 if result[max(0, visitedNode.value - 2)] == -1 {
                     result[max(0, visitedNode.value - 2)] = 6
