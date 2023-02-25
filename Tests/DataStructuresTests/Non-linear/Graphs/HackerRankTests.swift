@@ -70,9 +70,10 @@ private extension HackerRankTests {
             return [-1]
         }
 
+        nodesHash[s] = nil
         var result: [Int] = Array(repeating: -1, count: n - 1)
 
-        nodesHash.filter({ $0.key != s }).values.sorted(by: { $0.value < $1.value }).forEach { visitingNode in
+        nodesHash.values.forEach { visitingNode in
             startingNode.BFSTraversal(from: visitingNode) { visitedNode in
                 if result[max(0, visitedNode.value - 2)] == -1 {
                     result[max(0, visitedNode.value - 2)] = 6
