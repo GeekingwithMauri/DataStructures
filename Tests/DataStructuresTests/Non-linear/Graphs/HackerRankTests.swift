@@ -25,6 +25,14 @@ final class HackerRankTests: XCTestCase {
         // Verify
         XCTAssertEqual(result, [-1, 6])
     }
+
+    func test_BFS_example4() {
+        // Given
+        let result = bfs(n: 5, m: 3, edges: [[3, 4], [1, 2], [1, 3]], s: 1)
+
+        // Verify
+        XCTAssertEqual(result, [6, 6, 12, -1])
+    }
 }
 
 private extension HackerRankTests {
@@ -32,9 +40,14 @@ private extension HackerRankTests {
         var nodesHash: [Int: GraphNode<Int>] = [:]
 
         edges.forEach { currentEdge in
-            if let existentNode = nodesHash[currentEdge.first!],
-                let previouslyConnectedNode  = nodesHash[currentEdge.last!] {
-                existentNode.add(edgeNode: previouslyConnectedNode)
+            if let existentNode = nodesHash[currentEdge.first!] {
+                if let previouslyConnectedNode  = nodesHash[currentEdge.last!] {
+                    existentNode.add(edgeNode: previouslyConnectedNode)
+                } else {
+                    let newNode = GraphNode<Int>(value: currentEdge.last!)
+                    existentNode.add(edgeNode: newNode)
+                    nodesHash[currentEdge.last!] = newNode
+                }
             } else {
                 let newNode = GraphNode<Int>(value: currentEdge.first!)
                 let connectedNode = GraphNode<Int>(value: currentEdge.last!)
