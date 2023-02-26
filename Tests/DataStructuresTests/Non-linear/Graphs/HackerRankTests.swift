@@ -4,7 +4,7 @@ import XCTest
 final class HackerRankTests: XCTestCase {
     func test_BFS_example1() {
         // Given
-        let result = bfs(n: 5, m: 3, edges: [[1, 2], [1, 3], [3, 4]], s: 1)
+        let result = bfs(n: 5, m: 3, edges: [[3, 4], [1, 2], [1, 3]], s: 1)
 
         // Verify
         XCTAssertEqual(result, [6, 6, 12, -1])
@@ -32,30 +32,9 @@ private extension HackerRankTests {
         var nodesHash: [Int: GraphNode<Int>] = [:]
 
         edges.forEach { currentEdge in
-            if let existentNode = nodesHash[currentEdge.first!] {
-                let newNode = GraphNode<Int>(value: currentEdge.last!)
-                existentNode.add(edgeNode: newNode)
-
-                nodesHash[currentEdge.last!] = newNode
-                nodesHash[currentEdge.first!] = existentNode
-            } else if let _ = nodesHash.values.first(where: { storedNode in
-                if let _ = storedNode.neighbors.first(where: { currentNeighbor in
-                    if currentNeighbor.value == currentEdge.first! {
-                        let nestedNode = GraphNode<Int>(value: currentEdge.last!)
-                        currentNeighbor.add(edgeNode: nestedNode)
-
-                        nodesHash[currentEdge.last!] = nestedNode
-                        return true
-                    } else {
-                        return false
-                    }
-                }) {
-                    return true
-                }
-
-                return false
-            }) {
-                print("void")
+            if let existentNode = nodesHash[currentEdge.first!],
+                let previouslyConnectedNode  = nodesHash[currentEdge.last!] {
+                existentNode.add(edgeNode: previouslyConnectedNode)
             } else {
                 let newNode = GraphNode<Int>(value: currentEdge.first!)
                 let connectedNode = GraphNode<Int>(value: currentEdge.last!)
@@ -70,26 +49,9 @@ private extension HackerRankTests {
             return [-1]
         }
 
-        nodesHash[s] = nil
         var result: [Int] = Array(repeating: -1, count: n - 1)
 
-        nodesHash.values.forEach { visitingNode in
-            startingNode.BFSTraversal(from: visitingNode) { visitedNode in
-                if result[max(0, visitedNode.value - 2)] == -1 {
-                    result[max(0, visitedNode.value - 2)] = 6
-                } else {
-                    result[max(0, visitedNode.value - 2)] += 6
-                }
-            }
-        }
-
-        return result
-    }
-
-    func visit(_ nodes: [GraphNode<Int>], from startingNode: GraphNode<Int>, totalConnections n: Int) -> [Int] {
-        var result: [Int] = Array(repeating: -1, count: n - 1)
-
-        nodes.forEach { visitingNode in
+        nodesHash.filter({ $0.key != s }).values.sorted(by: { $0.value < $1.value }).forEach { visitingNode in
             startingNode.BFSTraversal(from: visitingNode) { visitedNode in
                 if result[max(0, visitedNode.value - 2)] == -1 {
                     result[max(0, visitedNode.value - 2)] = 6
