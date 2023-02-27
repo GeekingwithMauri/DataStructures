@@ -51,7 +51,7 @@ public final class GraphNode<T: Equatable> {
     /// - Parameter key: key to match from
     /// - Returns: the first neighbor to match, should it exist.
     ///
-    /// Complexity: O(n), where n is the amount of neighbors.
+    /// Complexity: _O(n)_, where `n` is the amount of neighbors.
     public func fetchNode(key: T) -> GraphNode<T>? {
         return _neighbors.first(where: {
             $0.value == key
