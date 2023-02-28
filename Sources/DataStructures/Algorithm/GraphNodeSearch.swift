@@ -13,16 +13,20 @@ public extension GraphNode {
     ///   - startingNode: root node to start the search from
     ///   - visitNode: closure function to execute on each visited node
     func BFSTraversal<T>(from startingNode: GraphNode<T>, visitNode: @escaping (GraphNode<T>) -> Void) {
+        var seenNode: [GraphNode<T>: Bool] = [:]
         let queue = Queue<GraphNode<T>>()
-        startingNode.isVisited = true
         queue.enqueue(startingNode)
 
         while let currentNode = queue.dequeue() {
-            visitNode(currentNode)
+            if seenNode[currentNode] == nil {
+                seenNode[currentNode] = true
+                visitNode(currentNode)
+            }
 
-            for neighbor in currentNode.neighbors where !neighbor.isVisited {
-                neighbor.isVisited = true
-                queue.enqueue(neighbor)
+            for neighbor in currentNode.neighbors {
+                if seenNode[neighbor] == nil {
+                    queue.enqueue(neighbor)
+                }
             }
         }
     }
@@ -32,16 +36,20 @@ public extension GraphNode {
     ///   - startingNode: root node to start the search from
     ///   - visitNode: closure function to execute on each visited node
     func DFSTraversal<T>(from startingNode: GraphNode<T>, visitNode: @escaping (GraphNode<T>) -> Void) {
+        var seenNode: [GraphNode<T>: Bool] = [:]
         let stack = Stack<GraphNode<T>>()
-        startingNode.isVisited = true
         stack.push(startingNode)
 
         while let currentNode = stack.pop() {
-            visitNode(currentNode)
+            if seenNode[currentNode] == nil {
+                seenNode[currentNode] = true
+                visitNode(currentNode)
+            }
 
-            for neighbor in currentNode.neighbors where !neighbor.isVisited {
-                neighbor.isVisited = true
-                stack.push(neighbor)
+            for neighbor in currentNode.neighbors {
+                if seenNode[neighbor] == nil {
+                    stack.push(neighbor)
+                }
             }
         }
     }

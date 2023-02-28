@@ -8,7 +8,7 @@
 import Foundation
 
 /// Generic representation of a graph's node
-public final class GraphNode<T: Equatable> {
+public final class GraphNode<T: Equatable>: Hashable {
     /// Current value
     public let value: T
     
@@ -19,20 +19,13 @@ public final class GraphNode<T: Equatable> {
 
     private var _neighbors: [GraphNode<T>]
     
-    /// Whether or node this node has been checked before. Useful for DFS / BFS algorithms
-    public var isVisited: Bool
-    
     /// Default init
     /// - Parameters:
     ///   - value: node's value
     ///   - neighbors: adjacent nodes. Defaults to empty (`[]`)
-    ///   - isVisited: whether or node this node has been checked before. Defaults to `false`.
-    public init(value: T,
-                neighbors: [GraphNode<T>] = [],
-                isVisited: Bool = false) {
+    public init(value: T, neighbors: [GraphNode<T>] = []) {
         self.value = value
         self._neighbors = neighbors
-        self.isVisited = isVisited
     }
 
     /// Adds individual edges to this node
@@ -56,5 +49,13 @@ public final class GraphNode<T: Equatable> {
         return _neighbors.first(where: {
             $0.value == key
         })
+    }
+
+    public static func == (lhs: GraphNode<T>, rhs: GraphNode<T>) -> Bool {
+        return lhs.value == rhs.value
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
     }
 }
