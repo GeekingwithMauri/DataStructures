@@ -2,9 +2,9 @@
 import XCTest
 
 final class DFSTests: XCTestCase {
-    func testDFSWithSampleGraph() {
+    func testDFS_withSampleDirectedGraph() {
         // Given
-        let rootNode = GraphNodesMother.assembleAlphabeticalGraph()
+        let rootNode = GraphNodesMother.assembleAlphabeticalDirectedGraph()
         var visitedNodes = [GraphNode<String>]()
 
         // When

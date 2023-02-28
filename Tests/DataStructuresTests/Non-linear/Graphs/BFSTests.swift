@@ -2,10 +2,10 @@ import DataStructures
 import XCTest
 
 final class BFSTests: XCTestCase {
-    func test_visitsAreRepeating_nodesWhileTransversingThem() {
+    func test_uniqueVisits_whileTransversingNodes() {
         // Given
         var visitedNodes = Set<Int>()
-        let assemblesGraphRoot = GraphNodesMother.assembleNumericalConnectedGraph()
+        let assemblesGraphRoot = GraphNodesMother.assembleNumericalDirectedGraph()
 
         // When
         Search.BFSTraversal(from: assemblesGraphRoot) { currentNode in
@@ -17,7 +17,7 @@ final class BFSTests: XCTestCase {
 
     func test_expectedTransversalOrder_fromARootNode() {
         // Given
-        let nodeA = GraphNodesMother.assembleAlphabeticalGraph()
+        let nodeA = GraphNodesMother.assembleAlphabeticalDirectedGraph()
         var visitedNodes = [GraphNode<String>]()
 
         // When

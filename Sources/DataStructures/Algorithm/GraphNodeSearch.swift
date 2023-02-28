@@ -12,7 +12,8 @@ public enum Search {
     /// - Parameters:
     ///   - startingNode: root node to start the search from
     ///   - visitNode: closure function to execute on each visited node
-    public static func BFSTraversal<T>(from startingNode: GraphNode<T>, visitNode: @escaping (GraphNode<T>) -> Void) {
+    public static func BFSTraversal<T>(from startingNode: GraphNode<T>,
+                                       visitNode: @escaping (GraphNode<T>) -> Void) {
         var seenNode: [GraphNode<T>: Bool] = [:]
         let queue = Queue<GraphNode<T>>()
         queue.enqueue(startingNode)
@@ -23,10 +24,8 @@ public enum Search {
                 visitNode(currentNode)
             }
 
-            for neighbor in currentNode.neighbors {
-                if seenNode[neighbor] == nil {
-                    queue.enqueue(neighbor)
-                }
+            for neighbor in currentNode.neighbors where seenNode[neighbor] == nil {
+                queue.enqueue(neighbor)
             }
         }
     }
@@ -35,7 +34,8 @@ public enum Search {
     /// - Parameters:
     ///   - startingNode: root node to start the search from
     ///   - visitNode: closure function to execute on each visited node
-    public static func DFSTraversal<T>(from startingNode: GraphNode<T>, visitNode: @escaping (GraphNode<T>) -> Void) {
+    public static func DFSTraversal<T>(from startingNode: GraphNode<T>,
+                                       visitNode: @escaping (GraphNode<T>) -> Void) {
         var seenNode: [GraphNode<T>: Bool] = [:]
         let stack = Stack<GraphNode<T>>()
         stack.push(startingNode)
@@ -46,10 +46,8 @@ public enum Search {
                 visitNode(currentNode)
             }
 
-            for neighbor in currentNode.neighbors {
-                if seenNode[neighbor] == nil {
-                    stack.push(neighbor)
-                }
+            for neighbor in currentNode.neighbors where seenNode[neighbor] == nil {
+                stack.push(neighbor)
             }
         }
     }

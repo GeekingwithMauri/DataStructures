@@ -8,7 +8,7 @@
 import DataStructures
 
 struct GraphNodesMother {
-    static func assembleNumericalConnectedGraph() -> GraphNode<Int> {
+    static func assembleNumericalDirectedGraph() -> GraphNode<Int> {
         let node0 = GraphNode<Int>(value: 0)
         let node1 = GraphNode<Int>(value: 1)
         let node2 = GraphNode<Int>(value: 2)
@@ -22,7 +22,7 @@ struct GraphNodesMother {
         return node0
     }
 
-    static func assembleAlphabeticalGraph() -> GraphNode<String> {
+    static func assembleAlphabeticalDirectedGraph() -> GraphNode<String> {
         let nodeA = GraphNode<String>(value: "A")
         let nodeB = GraphNode<String>(value: "B")
         let nodeC = GraphNode<String>(value: "C")
