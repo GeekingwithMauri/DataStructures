@@ -8,11 +8,25 @@ final class DFSTests: XCTestCase {
         var visitedNodes = [GraphNode<String>]()
 
         // When
-        Search.DFSTraversal(from: rootNode) { node in
+        GraphNodeSearch.DFSTraversal(from: rootNode) { node in
             visitedNodes.append(node)
         }
 
         // Verify
-        XCTAssertEqual(visitedNodes.map { $0.value }, ["A", "C", "F", "E", "B", "D"])
+        XCTAssertEqual(visitedNodes.map { $0.value }, ["A", "C", "F", "B", "E", "D"])
+    }
+
+    func testDFS_withSampleUndirectedGraph() {
+        // Given
+        let rootNode = GraphNodesMother.assembleAlphabeticalUndirectedGraph()
+        var visitedNodes = [GraphNode<String>]()
+
+        // When
+        GraphNodeSearch.DFSTraversal(from: rootNode) { node in
+            visitedNodes.append(node)
+        }
+
+        // Verify
+        XCTAssertEqual(visitedNodes.map { $0.value }, ["A", "E", "F", "H", "D", "C", "B", "G"])
     }
 }

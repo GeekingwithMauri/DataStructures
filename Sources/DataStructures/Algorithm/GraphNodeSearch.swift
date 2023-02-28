@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Search {
+public enum GraphNodeSearch {
     /// Transverse a graph in a _BFS_ fashion
     /// - Parameters:
     ///   - startingNode: root node to start the search from
