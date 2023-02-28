@@ -7,12 +7,12 @@
 
 import Foundation
 
-public extension GraphNode {
+public enum Search {
     /// Transverse a graph in a _BFS_ fashion
     /// - Parameters:
     ///   - startingNode: root node to start the search from
     ///   - visitNode: closure function to execute on each visited node
-    func BFSTraversal<T>(from startingNode: GraphNode<T>, visitNode: @escaping (GraphNode<T>) -> Void) {
+    public static func BFSTraversal<T>(from startingNode: GraphNode<T>, visitNode: @escaping (GraphNode<T>) -> Void) {
         var seenNode: [GraphNode<T>: Bool] = [:]
         let queue = Queue<GraphNode<T>>()
         queue.enqueue(startingNode)
@@ -35,7 +35,7 @@ public extension GraphNode {
     /// - Parameters:
     ///   - startingNode: root node to start the search from
     ///   - visitNode: closure function to execute on each visited node
-    func DFSTraversal<T>(from startingNode: GraphNode<T>, visitNode: @escaping (GraphNode<T>) -> Void) {
+    public static func DFSTraversal<T>(from startingNode: GraphNode<T>, visitNode: @escaping (GraphNode<T>) -> Void) {
         var seenNode: [GraphNode<T>: Bool] = [:]
         let stack = Stack<GraphNode<T>>()
         stack.push(startingNode)

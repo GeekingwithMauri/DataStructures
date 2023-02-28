@@ -85,7 +85,7 @@ private extension HackerRankTests {
         nodesHash[s] = nil
         nodesHash.values.sorted(by: { $0.value < $1.value }).enumerated().forEach { index, visitingNode in
             // TODO: solve this. It's not starting from the top
-            startingNode.BFSTraversal(from: visitingNode) { visitedNode in
+            Search.BFSTraversal(from: visitingNode) { visitedNode in
 //                guard startingNode.value != visitedNode.value else {
 //                    return
 //                }

@@ -8,7 +8,7 @@ final class DFSTests: XCTestCase {
         var visitedNodes = [GraphNode<String>]()
 
         // When
-        rootNode.DFSTraversal(from: rootNode) { node in
+        Search.DFSTraversal(from: rootNode) { node in
             visitedNodes.append(node)
         }
 
